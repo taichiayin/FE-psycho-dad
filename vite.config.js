@@ -18,6 +18,7 @@ export default defineConfig({
     }
   },
   server: {
+    host: '0.0.0.0',
     open: true,
     https: {
       key: fs.readFileSync(`${__dirname}/src/assets/localhost-key.pem`),

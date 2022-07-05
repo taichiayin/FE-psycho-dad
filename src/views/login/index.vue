@@ -1,29 +1,24 @@
 <template>
-  <div class="fb-login-btn">
-    <div
-      class="fb-login-button"
-      data-width=""
-      data-size="large"
-      data-button-type="continue_with"
-      data-layout="default"
-      data-auto-logout-link="false"
-      data-use-continue-as="true"
-    />
-  </div>
-  <div class="btn"
-       @click="login"
+  <div
+    class="btn"
+    @click="login"
   >
     login facebook
   </div>
-  <div class="btn"
-       @click="logout"
+  <div
+    class="btn"
+    @click="logout"
   >
     loguut facebook
   </div>
+  <img
+    :src="url"
+    alt=""
+  >
 </template>
 
 <script>
-import { onMounted } from '@vue/runtime-core'
+import { onMounted, ref } from '@vue/runtime-core'
 export default {
   name: 'Login'
 }
@@ -31,11 +26,27 @@ export default {
 
 <script setup>
 
+const url = ref('')
 const login = () => {
   window.FB.login(function(response) {
   // handle the response
-    console.log(response)
-  })
+    const { authResponse, status } = response
+    if (status === 'connected') {
+      window.FB.api('/me', function(userInfo) {
+        console.log(userInfo)
+        window.FB.api(
+          `/${userInfo.id}/picture`,
+          'GET',
+          { 'redirect': 'false' },
+          function(res) {
+            // Insert your code here
+            console.log(res)
+            url.value = res.data.url
+          }
+        )
+      })
+    }
+  }, { scope: 'public_profile,email' })
 }
 
 const logout = () => {
@@ -45,20 +56,20 @@ const logout = () => {
 }
 
 onMounted(() => {
-  window.FB.getLoginStatus(function(res) {
-    console.log(res)
-    const { authResponse, status } = res
+  // window.FB.getLoginStatus(function(res) {
+  //   console.log(res)
+  //   const { authResponse, status } = res
 
-    if (status === 'connected') {
-      // basic info
-      window.FB.api('/me', function(userInfo) {
-      })
-      // groups
-      // window.FB.api(`/${authResponse.userID}/groups?access_token=${authResponse.accessToken}`, res => {
-      //   console.log(res)
-      // })
-    }
-  })
+  //   if (status === 'connected') {
+  //     // basic info
+  //     window.FB.api('/me', function(userInfo) {
+  //     })
+  //     // groups
+  //     // window.FB.api(`/${authResponse.userID}/groups?access_token=${authResponse.accessToken}`, res => {
+  //     //   console.log(res)
+  //     // })
+  //   }
+  // })
 })
 
 </script>

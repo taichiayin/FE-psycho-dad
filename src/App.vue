@@ -7,10 +7,6 @@ export default { name: 'App' }
 </script>
 
 <script setup>
-import { initFacebook } from './utils/fb'
-
-// FaceBook init
-initFacebook()
 
 </script>
 
