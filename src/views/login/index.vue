@@ -47,11 +47,16 @@ const logout = () => {
 onMounted(() => {
   window.FB.getLoginStatus(function(res) {
     console.log(res)
-    if (res.status === 'connected') {
+    const { authResponse, status } = res
+
+    if (status === 'connected') {
       // basic info
       window.FB.api('/me', function(userInfo) {
-
       })
+      // groups
+      // window.FB.api(`/${authResponse.userID}/groups?access_token=${authResponse.accessToken}`, res => {
+      //   console.log(res)
+      // })
     }
   })
 })
