@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "eslint-plugin-vue": "^7.0.0-0",
+    "fast-glob": "^3.2.11",
     "pinia": "^2.0.14",
     "vue": "^3.2.25",
     "vue-router": "^4.1.0"
@@ -18,8 +19,10 @@
     "@babel/eslint-parser": "^7.18.2",
     "@vitejs/plugin-vue": "^2.3.3",
     "eslint": "^8.19.0",
+    "naive-ui": "^2.30.8",
     "stylus": "^0.58.1",
     "vite": "^2.9.9",
-    "vite-plugin-eslint": "^1.6.1"
+    "vite-plugin-eslint": "^1.6.1",
+    "vite-plugin-svg-icons": "^2.0.1"
   }
 }
