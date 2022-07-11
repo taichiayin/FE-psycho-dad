@@ -34,6 +34,7 @@ const url = ref('')
 
 const login = () => {
   window.FB.login(function(response) {
+    console.log('login', response)
     const { status } = response
     // 判斷是否登入
     if (status === 'connected') {
@@ -65,6 +66,17 @@ const login = () => {
 
 onMounted(() => {
   window.FB.getLoginStatus(function(res) {
+    console.log('loginStatus', res)
+    window.FB.api(
+      `/debug_token?input_token=${res.authResponse.accessToken}`,
+      function(response) {
+        console.log('debug_token', response)
+        if (response && !response.error) {
+        /* handle the result */
+        }
+      }
+    )
+
     const { status } = res
     if (status === 'connected') {
       window.FB.api('/me', {
