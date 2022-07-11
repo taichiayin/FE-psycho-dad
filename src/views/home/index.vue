@@ -30,13 +30,14 @@ export default {
 </script>
 
 <script setup>
+import { onMounted, ref } from 'vue'
+import { NCard, NSpace } from 'naive-ui'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import StoreDetailModal from './components/StoreDetailModal.vue'
 import FilterBar from '@/components/FilterBar/index.vue'
 import img1 from '@/assets/imgs/domplin.png'
-import { NCard, NSpace } from 'naive-ui'
-import { ref } from 'vue'
+import { getUser } from '@/api/users.js'
 
 const storeList = ref([
   {
@@ -83,6 +84,10 @@ const onStoreClick = id => {
   storeId.value = id
   show.value = true
 }
+
+onMounted(async() => {
+  const res = await getUser()
+})
 
 </script>
 

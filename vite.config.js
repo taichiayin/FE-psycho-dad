@@ -31,17 +31,18 @@ export default defineConfig({
     https: {
       key: fs.readFileSync(`${__dirname}/src/assets/localhost-key.pem`),
       cert: fs.readFileSync(`${__dirname}/src/assets/localhost.pem`)
+    },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3088/', // 后端接口的域名
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, '')
+      }
+      // ,
+      // '/static': {
+      //   target: 'https://admin.prj300.xyz/', // 后端接口的域名
+      //   changeOrigin: true
+      // }
     }
-    // proxy: {
-    //   '/api': {
-    //     target: 'https://api30-sit.prj300.xyz/', // 后端接口的域名
-    //     changeOrigin: true,
-    //     rewrite: path => path.replace(/^\/api/, '')
-    //   },
-    //   '/static': {
-    //     target: 'https://admin.prj300.xyz/', // 后端接口的域名
-    //     changeOrigin: true
-    //   }
-    // }
   }
 })
