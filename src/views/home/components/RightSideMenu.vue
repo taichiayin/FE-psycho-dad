@@ -1,6 +1,6 @@
 <template>
   <div class="right-side-menu">
-    right side menu
+    <div class="btn">登出</div>
   </div>
 </template>
 

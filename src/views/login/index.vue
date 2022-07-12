@@ -27,6 +27,7 @@ export default {
 import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/store/user.js'
 import { useRouter } from 'vue-router'
+import { validateFbToken } from '@/api/login.js'
 
 const user = useUserStore()
 const router = useRouter()
@@ -35,6 +36,8 @@ const url = ref('')
 const login = () => {
   window.FB.login(function(response) {
     console.log('login', response)
+    validateFbToken({ accessToken: response.authResponse.access_token })
+
     const { status } = response
     // 判斷是否登入
     if (status === 'connected') {
@@ -67,15 +70,15 @@ const login = () => {
 onMounted(() => {
   window.FB.getLoginStatus(function(res) {
     console.log('loginStatus', res)
-    window.FB.api(
-      `/debug_token?input_token=${res.authResponse.accessToken}`,
-      function(response) {
-        console.log('debug_token', response)
-        if (response && !response.error) {
-        /* handle the result */
-        }
-      }
-    )
+    // window.FB.api(
+    //   `/debug_token?input_token=${res.authResponse.accessToken}`,
+    //   function(response) {
+    //     console.log('debug_token', response)
+    //     if (response && !response.error) {
+    //     /* handle the result */
+    //     }
+    //   }
+    // )
 
     const { status } = res
     if (status === 'connected') {
