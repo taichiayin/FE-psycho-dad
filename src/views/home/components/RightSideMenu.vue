@@ -27,6 +27,7 @@ const logout = () => {
 .right-side-menu
   width 100%
   height 100%
+  padding 20px
   color rgba(255,255,255,.7)
   background-color #353b48
 </style>
