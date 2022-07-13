@@ -2,7 +2,7 @@ import { devRequest as request } from '@/utils/http/index'
 
 export function validateFbToken(data) {
   return request({
-    url: '/api/v1/validateFbToken',
+    url: '/v1/validateFbToken',
     method: 'post',
     data
   })

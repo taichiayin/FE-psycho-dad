@@ -19,7 +19,7 @@ import axios from 'axios'
 const service = axios.create({
   baseURL: '', // api 的 base_url
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'application/json'
   }
 })
 

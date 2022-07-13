@@ -22,6 +22,10 @@ export const useUserStore = defineStore('user', {
     },
     setEmail(email) {
       this.userInfo.email = email
+    },
+    clearInfo() {
+      this.userInfo = {}
+      localStorage.clear()
     }
   }
 })

@@ -37,7 +37,6 @@ import Footer from './components/Footer.vue'
 import StoreDetailModal from './components/StoreDetailModal.vue'
 import FilterBar from '@/components/FilterBar/index.vue'
 import img1 from '@/assets/imgs/domplin.png'
-import { getUser } from '@/api/users.js'
 
 const storeList = ref([
   {
@@ -86,7 +85,6 @@ const onStoreClick = id => {
 }
 
 onMounted(async() => {
-  const res = await getUser()
 })
 
 </script>

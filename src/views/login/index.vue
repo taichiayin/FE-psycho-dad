@@ -33,53 +33,28 @@ const user = useUserStore()
 const router = useRouter()
 const url = ref('')
 
+const goValidateFBToken = async response => {
+  const { code, data } = await validateFbToken({ accessToken: response.authResponse.accessToken })
+  if (code === 1) {
+    const info = {
+      id: data.id,
+      name: data.name,
+      email: data?.email ?? '',
+      avatar: data?.picture?.data?.url ?? ''
+    }
+    user.setInfo(info)
+    router.replace({ name: 'Home' })
+  }
+}
+
 const login = () => {
   window.FB.login(function(response) {
-    console.log('login', response)
-    validateFbToken({ accessToken: response.authResponse.access_token })
-
-    const { status } = response
-    // 判斷是否登入
-    if (status === 'connected') {
-      window.FB.api('/me', {
-        'fields': 'id,name,email,picture'
-      }, function(me) {
-        if (!me.id) {
-          return
-        }
-        const info = {
-          id: me.id,
-          name: me.name,
-          email: me?.email ?? '',
-          avatar: me?.picture?.data?.url ?? ''
-        }
-        user.setInfo(info)
-        console.log(me)
-        router.replace({ name: 'Home' })
-      })
-    }
+    goValidateFBToken(response)
   }, { scope: 'public_profile,email' })
 }
 
-// const logout = () => {
-//   window.FB.logout((response) => {
-//     console.log(response)
-//   })
-// }
-
 onMounted(() => {
   window.FB.getLoginStatus(function(res) {
-    console.log('loginStatus', res)
-    // window.FB.api(
-    //   `/debug_token?input_token=${res.authResponse.accessToken}`,
-    //   function(response) {
-    //     console.log('debug_token', response)
-    //     if (response && !response.error) {
-    //     /* handle the result */
-    //     }
-    //   }
-    // )
-
     const { status } = res
     if (status === 'connected') {
       window.FB.api('/me', {
@@ -95,7 +70,6 @@ onMounted(() => {
           avatar: me?.picture?.data?.url ?? ''
         }
         user.setInfo(info)
-        console.log(me)
         router.replace({ name: 'Home' })
       })
     }

@@ -1,10 +1,25 @@
 <template>
   <div class="right-side-menu">
-    <div class="btn">登出</div>
+    <div class="btn" @click="logout">登出</div>
   </div>
 </template>
 
 <script setup>
+import { useUserStore } from '@/store/user.js'
+import { useRouter } from 'vue-router'
+
+const user = useUserStore()
+const router = useRouter()
+
+const logout = () => {
+  window.FB.getLoginStatus(res => {
+    window.FB.logout((response) => {
+      console.log(response)
+      user.clearInfo()
+      router.replace({ name: 'Login' })
+    })
+  })
+}
 
 </script>
 
