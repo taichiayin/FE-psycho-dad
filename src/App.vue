@@ -7,6 +7,11 @@ export default { name: 'App' }
 </script>
 
 <script setup>
+import { onMounted } from '@vue/runtime-core'
+
+onMounted(() => {
+
+})
 
 </script>
 

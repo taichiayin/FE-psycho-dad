@@ -6,15 +6,18 @@
       <n-space class="wrap" vertical>
         <n-card
           v-for="item in storeList"
-          :key="item.id"
+          :key="item.storeId"
           class="card"
           size="small"
-          :title="item.name"
-          @click="onStoreClick(item.id)"
+          :title="item.storeName"
+          @click="onStoreClick(item.storeId)"
         >
-          <template #cover>
+          <template v-if="item.defaultImg" #cover>
             <img :src="item.defaultImg">
           </template>
+          <div class="content">
+            <div class="dis">約距離{{ item.dis }}KM</div>
+          </div>
         </n-card>
       </n-space>
     </div>
@@ -36,45 +39,9 @@ import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import StoreDetailModal from './components/StoreDetailModal.vue'
 import FilterBar from '@/components/FilterBar/index.vue'
-import img1 from '@/assets/imgs/domplin.png'
+import { getStores } from '@/api/stores.js'
 
-const storeList = ref([
-  {
-    id: 1,
-    name: '左營老麵館',
-    defaultImg: img1
-  },
-  {
-    id: 2,
-    name: '阿發蒸餃',
-    defaultImg: img1
-  },
-  {
-    id: 2,
-    name: '阿發蒸餃',
-    defaultImg: img1
-  },
-  {
-    id: 2,
-    name: '阿發蒸餃',
-    defaultImg: img1
-  },
-  {
-    id: 2,
-    name: '阿發蒸餃',
-    defaultImg: img1
-  },
-  {
-    id: 2,
-    name: '阿發蒸餃',
-    defaultImg: img1
-  },
-  {
-    id: 2,
-    name: '阿發蒸餃',
-    defaultImg: img1
-  }
-])
+const storeList = ref([])
 
 const storeId = ref(null)
 const show = ref(false)
@@ -84,7 +51,14 @@ const onStoreClick = id => {
   show.value = true
 }
 
-onMounted(async() => {
+onMounted(() => {
+  // 獲取裝置目前座標
+  window.navigator.geolocation.getCurrentPosition(async p => {
+    const { code, data } = await getStores({ lon: p.coords.longitude, lat: p.coords.latitude })
+    if (code === 1) {
+      storeList.value = data
+    }
+  })
 })
 
 </script>
@@ -98,7 +72,14 @@ onMounted(async() => {
   padding 5px 10px 10px 10px
   .wrap
     margin-bottom 100px
-.card
-  height 200px
+// .card
+//   height 200px
+  .content
+    width 100%
+    .dis
+      width 100%
+      text-align right
+      color #888
+
 </style>
 
