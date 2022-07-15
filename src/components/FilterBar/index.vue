@@ -2,17 +2,22 @@
   <div class="filter-bar">
     <div class="box country">
       <n-select
-        v-model:value="country"
+        v-model:value="county"
         size="small"
-        :options="countryList"
+        label-field="name"
+        value-field="countyId"
+        :options="countyList"
         placeholder="縣市"
+        @update:value="handleCountyUpdate"
       />
     </div>
     <div class="box area">
       <n-select
-        v-model:value="area"
+        v-model:value="district"
         size="small"
-        :options="areaList"
+        :options="districtList"
+        label-field="name"
+        value-field="districtId"
         placeholder="鄉鎮區"
       />
     </div>
@@ -36,44 +41,33 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { getAllCounties } from '@/api/counties.js'
+import { getAllDistricts } from '@/api/districts.js'
 import { NSelect, NInput } from 'naive-ui'
 
-const country = ref(null)
-const area = ref(null)
+const county = ref(null)
+const district = ref(null)
 const type = ref(null)
 const keyword = ref(null)
-const countryList = ref([
-  {
-    label: '高雄市',
-    value: '1'
-  },
-  {
-    label: '高雄縣',
-    value: '2'
-  }
-])
-const areaList = ref([
-  {
-    label: '左營區',
-    value: '1'
-  },
-  {
-    label: '鳳山區',
-    value: '2'
-  }
+const countyList = ref([])
+const districtList = ref([])
+const typeList = ref([])
 
-])
-const typeList = ref([
-  {
-    label: '餐飲',
-    value: '1'
-  },
-  {
-    label: '汽車',
-    value: '1'
+const handleCountyUpdate = async val => {
+  district.value = null
+  const { code, data } = await getAllDistricts({ countyId: val })
+  if (code === 1) {
+    districtList.value = data
   }
-])
+}
+
+onMounted(async() => {
+  const { code, data } = await getAllCounties()
+  if (code === 1) {
+    countyList.value = data
+  }
+})
 
 </script>
 
