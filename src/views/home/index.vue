@@ -10,7 +10,7 @@
           class="card"
           size="small"
           :title="item.storeName"
-          @click="onStoreClick(item.storeId)"
+          @click="onStoreClick(item)"
         >
           <template v-if="item.defaultImg" #cover>
             <img :src="item.defaultImg">
@@ -22,7 +22,7 @@
       </n-space>
     </div>
     <Footer />
-    <StoreDetailModal v-model:value="show" :store-id="storeId" />
+    <StoreDetailModal v-model:value="show" :data="data" />
   </div>
 </template>
 
@@ -43,11 +43,11 @@ import { getStores } from '@/api/stores.js'
 
 const storeList = ref([])
 
-const storeId = ref(null)
 const show = ref(false)
+const data = ref(null)
 
-const onStoreClick = id => {
-  storeId.value = id
+const onStoreClick = item => {
+  data.value = item
   show.value = true
 }
 

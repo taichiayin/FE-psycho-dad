@@ -1,9 +1,9 @@
 <template>
   <n-modal v-model:show="visible">
     <div class="store-detail">
-      <div class="title">左營老麵館</div>
-      <div class="carousel">
-        <n-carousel
+      <div class="title">{{ props.data.storeName }}</div>
+      <!-- <div class="carousel"> -->
+      <!-- <n-carousel
           effect="fade"
           dot-type="line"
           :interval="3000"
@@ -25,21 +25,21 @@
             class="carousel-img"
             src="https://naive-ui.oss-cn-beijing.aliyuncs.com/carousel-img/carousel4.jpeg"
           >
-        </n-carousel>
+        </n-carousel> -->
+      <!-- </div> -->
+      <div v-if="props.data.introduce" class="introduce">
+        {{ props.data.introduce }}
       </div>
-      <div class="introduce">
-        創始於民國27年，至今飄香一個世紀，好味道已鋪滿眷村的每個角落。
-      </div>
-      <div class="address">
-        <div class="text">高雄市左營區左營大路288號</div>
+      <div v-if="props.data.address" class="address">
+        <div class="text">{{ props.data.address }}</div>
         <SvgIcon class="icon-copy" name="copy" />
       </div>
-      <div class="contactc">
+      <div v-if="props.data.phone||props.data.mobile" class="contactc">
         <div class="phone">
-          <a href="tel:02-27383930">02-27383930</a>
+          <a href="tel:02-27383930">{{ props.data.phone }}</a>
         </div>
         <div class="mobile">
-          <a href="tel:0928-888-999">0928-888-999</a>
+          <a href="tel:0928-888-999">{{ props.data.mobile }}</a>
         </div>
       </div>
     </div>
@@ -48,12 +48,12 @@
 
 <script setup>
 import { computed, defineEmits, defineProps } from 'vue'
-import { NModal, NCarousel } from 'naive-ui'
+import { NModal } from 'naive-ui'
 import SvgIcon from '../../../components/SvgIcon/index.vue'
 
 const props = defineProps({
-  storeId: {
-    type: Number,
+  data: {
+    type: Object,
     default: null
   },
   value: {
