@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <n-message-provider>
+    <router-view />
+  </n-message-provider>
 </template>
 
 <script>
@@ -8,6 +10,7 @@ export default { name: 'App' }
 
 <script setup>
 import { onMounted } from '@vue/runtime-core'
+import { NMessageProvider } from 'naive-ui'
 
 onMounted(() => {
 

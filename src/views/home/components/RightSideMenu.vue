@@ -1,6 +1,7 @@
 <template>
   <div class="right-side-menu">
     <div class="btn" @click="logout">登出</div>
+    <div class="btn" @click="goEdit">編輯模式</div>
   </div>
 </template>
 
@@ -19,6 +20,10 @@ const logout = () => {
       router.replace({ name: 'Login' })
     })
   })
+}
+
+const goEdit = () => {
+  router.push({ name: 'Edit' })
 }
 
 </script>

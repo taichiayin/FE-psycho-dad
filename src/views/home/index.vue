@@ -3,7 +3,7 @@
     <Header />
     <FilterBar />
     <div class="main">
-      <n-space class="wrap" vertical>
+      <n-space v-if="!islocating" class="wrap" vertical>
         <n-card
           v-for="item in storeList"
           :key="item.storeId"
@@ -20,6 +20,11 @@
           </div>
         </n-card>
       </n-space>
+      <n-spin class="spin" :show="islocating">
+        <template #description>
+          定位中，請稍候...
+        </template>
+      </n-spin>
     </div>
     <Footer />
     <StoreDetailModal v-model:value="show" :data="data" />
@@ -34,7 +39,7 @@ export default {
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { NCard, NSpace } from 'naive-ui'
+import { NCard, NSpace, NSpin } from 'naive-ui'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import StoreDetailModal from './components/StoreDetailModal.vue'
@@ -45,6 +50,7 @@ const storeList = ref([])
 
 const show = ref(false)
 const data = ref(null)
+const islocating = ref(false)
 
 const onStoreClick = item => {
   data.value = item
@@ -52,8 +58,10 @@ const onStoreClick = item => {
 }
 
 onMounted(() => {
+  islocating.value = true
   // 獲取裝置目前座標
   window.navigator.geolocation.getCurrentPosition(async p => {
+    islocating.value = false
     const { code, data } = await getStores({ lon: p.coords.longitude, lat: p.coords.latitude })
     if (code === 1) {
       storeList.value = data
@@ -72,8 +80,9 @@ onMounted(() => {
   padding 5px 10px 10px 10px
   .wrap
     margin-bottom 100px
-// .card
-//   height 200px
+  .spin
+    width 100%
+    margin-top 100px
   .content
     width 100%
     .dis
