@@ -26,7 +26,7 @@ export default defineConfig({
     }
   },
   server: {
-    // host: '0.0.0.0',
+    host: '0.0.0.0',
     open: true,
     https: {
       key: fs.readFileSync(`${__dirname}/src/assets/localhost-key.pem`),
@@ -37,6 +37,10 @@ export default defineConfig({
         target: 'http://localhost:3088/', // 后端接口的域名
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '')
+      },
+      '/img': {
+        target: 'http://localhost:3088/', // 后端接口的域名
+        changeOrigin: true
       }
       // ,
       // '/static': {

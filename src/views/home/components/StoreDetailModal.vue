@@ -32,15 +32,15 @@
       </div>
       <div v-if="props.data.address" class="address">
         <div class="text">{{ props.data.address }}</div>
-        <SvgIcon class="icon-copy" name="copy" />
+        <a :href="`https://www.google.com/maps/search/?api=1&query=${props.data.address}`"><SvgIcon class="icon" name="copy" /></a>
       </div>
-      <div v-if="props.data.phone||props.data.mobile" class="contactc">
-        <div class="phone">
-          <a href="tel:02-27383930">{{ props.data.phone }}</a>
-        </div>
-        <div class="mobile">
-          <a href="tel:0928-888-999">{{ props.data.mobile }}</a>
-        </div>
+      <div v-if=" props.data.phone" class="phone">
+        <a class="text" href="tel:02-27383930">{{ props.data.phone }}</a>
+        <SvgIcon class="icon" name="phone" />
+      </div>
+      <div v-if=" props.data.mobile" class="mobile">
+        <a class="text" href="tel:0928-888-999">{{ props.data.mobile }}</a>
+        <SvgIcon class="icon" name="mobile" />
       </div>
     </div>
   </n-modal>
@@ -95,14 +95,14 @@ const visible = computed({
     width 100%
     box-sizing border-box
     margin-top 5px
-    padding 5px
+    padding 5px 5px 20px 5px
     border-radius 4px
     line-height 1.43
     letter-spacing 0.25px
     background-color #efefef
     font-family PingFangSC-Regular
 
-  .address
+  .address, .phone, .mobile
     display flex
     justify-content center
     align-items center
@@ -116,25 +116,7 @@ const visible = computed({
     font-family PingFangSC-Regular
     .text
       margin-right 10px
-    .icon-copy
+    .icon
       width 20px
       height 20px
-  .contactc
-    width 100%
-    box-sizing border-box
-    padding 5px
-    margin-top 5px
-    border-radius 4px
-    display flex
-    justify-content center
-    align-items center
-    background-color #efefef
-    .phone,.mobile
-      width 100%
-      display flex
-      justify-content center
-      align-items center
-      font-family PingFangSC-Regular
-    .phone
-      border-right 2px solid #666
 </style>

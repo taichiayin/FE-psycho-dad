@@ -12,6 +12,7 @@
     "eslint-plugin-vue": "^7.0.0-0",
     "fast-glob": "^3.2.11",
     "pinia": "^2.0.14",
+    "v3-infinite-loading": "^1.0.6",
     "vue": "^3.2.25",
     "vue-router": "^4.1.0"
   },

@@ -10,7 +10,7 @@ export const devRequest = async(req, errorTypes = []) => {
   const headers = {}
   const axiosCommon = req.headers || {}
   headers['Accept-Language'] = 'zh-tw'
-  headers.appType = '0' // 0-平台，1-体育
+  // headers.appType = '0' // 0-平台，1-体育
   req.headers = { ...axiosCommon, ...headers, ...signParams }
 
   // const globalError = [

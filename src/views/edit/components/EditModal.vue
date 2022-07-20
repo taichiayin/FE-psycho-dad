@@ -69,6 +69,38 @@
         <n-form-item path="email" label="">
           <n-input v-model:value="form.email" placeholder="電子信箱" />
         </n-form-item>
+        <n-form-item path="" label="">
+          <n-upload
+            :action="uploadApiUrl"
+            :max="1"
+            :default-file-list="fileList"
+            list-type="image-card"
+            :data="{
+              ...dataInfo,
+              fileName: 'default'
+            }"
+          />
+          <n-upload
+            :action="uploadApiUrl"
+            :max="1"
+            :default-file-list="fileList"
+            list-type="image-card"
+            :data="{
+              ...dataInfo,
+              fileName: 'sec'
+            }"
+          />
+          <n-upload
+            :action="uploadApiUrl"
+            :max="1"
+            :default-file-list="fileList"
+            list-type="image-card"
+            :data="{
+              ...dataInfo,
+              fileName: 'thd'
+            }"
+          />
+        </n-form-item>
         <n-form-item path="lon" label="">
           <n-input-group>
             <n-input-number
@@ -126,7 +158,7 @@
 
 <script setup>
 import { computed, defineEmits, defineProps, onMounted, ref } from 'vue'
-import { NModal, NForm, NFormItem, NInput, NButton, NSelect, NInputNumber, NInputGroup, NInputGroupLabel } from 'naive-ui'
+import { NModal, NForm, NFormItem, NInput, NButton, NSelect, NInputNumber, NInputGroup, NInputGroupLabel, NUpload } from 'naive-ui'
 import { useMessage } from 'naive-ui'
 import { getAllCounties } from '@/api/counties.js'
 import { getAllDistricts } from '@/api/districts.js'
@@ -153,6 +185,11 @@ window.$Nmessage = useMessage()
 const form = ref({
   countyId: null,
   dis: null
+})
+const uploadApiUrl = ref('http://localhost:3088/v1/upload')
+const fileList = ref([])
+const dataInfo = ref({
+  storeId: props.data.storeId
 })
 const countyList = ref([])
 const districtList = ref([])
