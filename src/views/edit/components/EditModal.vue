@@ -1,5 +1,13 @@
 <template>
-  <n-modal v-model:show="visible">
+  <n-modal
+    v-model:show="visible"
+    preset="dialog"
+    :auto-focus="false"
+    :mask-closable="false"
+    :show-icon="false"
+    :bordered="false"
+    title="詳情"
+  >
     <div class="edit">
       <n-form
         ref="formRef"
@@ -70,36 +78,7 @@
           <n-input v-model:value="form.email" placeholder="電子信箱" />
         </n-form-item>
         <n-form-item path="" label="">
-          <n-upload
-            :action="uploadApiUrl"
-            :max="1"
-            :default-file-list="fileList"
-            list-type="image-card"
-            :data="{
-              ...dataInfo,
-              fileName: 'default'
-            }"
-          />
-          <n-upload
-            :action="uploadApiUrl"
-            :max="1"
-            :default-file-list="fileList"
-            list-type="image-card"
-            :data="{
-              ...dataInfo,
-              fileName: 'sec'
-            }"
-          />
-          <n-upload
-            :action="uploadApiUrl"
-            :max="1"
-            :default-file-list="fileList"
-            list-type="image-card"
-            :data="{
-              ...dataInfo,
-              fileName: 'thd'
-            }"
-          />
+          <UploadImage :store-id="props.data.storeId" :default-img="props.data.defaultImg" @updateImgList="updateImgList" />
         </n-form-item>
         <n-form-item path="lon" label="">
           <n-input-group>
@@ -158,12 +137,13 @@
 
 <script setup>
 import { computed, defineEmits, defineProps, onMounted, ref } from 'vue'
-import { NModal, NForm, NFormItem, NInput, NButton, NSelect, NInputNumber, NInputGroup, NInputGroupLabel, NUpload } from 'naive-ui'
+import { NModal, NForm, NFormItem, NInput, NButton, NSelect, NInputNumber, NInputGroup, NInputGroupLabel } from 'naive-ui'
 import { useMessage } from 'naive-ui'
 import { getAllCounties } from '@/api/counties.js'
 import { getAllDistricts } from '@/api/districts.js'
 import { getAllTypes } from '@/api/types.js'
 import { CreateStore, UpdateStore } from '@/api/stores.js'
+import UploadImage from '@/components/UploadImage/index.vue'
 
 const props = defineProps({
   data: {
@@ -184,12 +164,8 @@ const emit = defineEmits(['update:value', 'submited'])
 window.$Nmessage = useMessage()
 const form = ref({
   countyId: null,
-  dis: null
-})
-const uploadApiUrl = ref('http://localhost:3088/v1/upload')
-const fileList = ref([])
-const dataInfo = ref({
-  storeId: props.data.storeId
+  dis: null,
+  imgList: null
 })
 const countyList = ref([])
 const districtList = ref([])
@@ -218,6 +194,10 @@ const handleCountyUpdate = async val => {
   if (districtCode === 1) {
     districtList.value = districtData
   }
+}
+
+const updateImgList = data => {
+  form.value.defaultImg = data[0].url
 }
 
 const submit = async() => {
@@ -272,6 +252,9 @@ onMounted(async() => {
     form.value.isDads = props.data.isDads
     form.value.isDadsRecommend = props.data.isDadsRecommend
     form.value.isClosePermanently = props.data.isClosePermanently
+    // form.value.defaultImg = props.data.defaultImg ? [{ url: props.data.defaultImg }] : []
+    // form.value.img1 = props.data.img1 ? [{ url: props.data.img1 }] : []
+    // form.value.img2 = props.data.img2 ? [{ url: props.data.img2 }] : []
   }
 })
 
@@ -280,10 +263,11 @@ onMounted(async() => {
 <style lang="stylus" scoped>
 .edit
   box-sizing border-box
-  width 90%
-  // height 600px
-  padding 10px
-  border-radius 8px
+  width 100%
+  height 600px
+  // padding 10px
+  overflow-y scroll
+  // border-radius 8px
   background-color #fff
   .btn-wrap
     width 100%
@@ -295,4 +279,5 @@ onMounted(async() => {
 
 :deep(.n-form-item-feedback-wrapper)
   min-height 10px
+
 </style>

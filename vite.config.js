@@ -39,8 +39,9 @@ export default defineConfig({
         rewrite: path => path.replace(/^\/api/, '')
       },
       '/img': {
-        target: 'http://localhost:3088/', // 后端接口的域名
-        changeOrigin: true
+        target: 'http://localhost:3088', // 后端接口的域名
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/img/, '/v1/img')
       }
       // ,
       // '/static': {

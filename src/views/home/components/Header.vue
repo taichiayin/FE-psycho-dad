@@ -1,7 +1,7 @@
 <template>
   <div class="home-header">
     <n-avatar round size="medium" :src="avatarUrl" />
-    <svg-icon class="icon-expand" name="expand" @click="active = !active" />
+    <svg-icon class="icon-indent" name="indent" @click="active = !active" />
     <n-drawer v-model:show="active" :width="250" placement="right">
       <RightSideMenu />
     </n-drawer>
@@ -34,7 +34,7 @@ const active = ref(false)
   justify-content space-between
   align-items center
   background-color #353B48
-  .icon-expand
+  .icon-indent
     width 36px
     height 36px
 

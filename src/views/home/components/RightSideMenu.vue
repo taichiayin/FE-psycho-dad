@@ -2,6 +2,7 @@
   <div class="right-side-menu">
     <div class="btn" @click="logout">登出</div>
     <div class="btn" @click="goEdit">編輯模式</div>
+    <div class="btn" @click="goFavorite">我的收藏</div>
   </div>
 </template>
 
@@ -26,6 +27,10 @@ const goEdit = () => {
   router.push({ name: 'Edit' })
 }
 
+const goFavorite = () => {
+  router.push({ name: 'Favorite' })
+}
+
 </script>
 
 <style lang="stylus" scoped>
@@ -35,4 +40,8 @@ const goEdit = () => {
   padding 20px
   color rgba(255,255,255,.7)
   background-color #353b48
+  .btn
+    width 100%
+    height 40px
+    font-size 24px
 </style>
