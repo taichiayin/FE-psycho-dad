@@ -14,3 +14,11 @@ export function getUser() {
     method: 'get'
   })
 }
+
+export function login(data) {
+  return request({
+    url: '/v1/login',
+    method: 'post',
+    data
+  })
+}

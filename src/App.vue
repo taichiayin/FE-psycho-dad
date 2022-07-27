@@ -28,6 +28,6 @@ body,
   padding 0
   font-size 16px
   color rgba(255,255,255,.7)
-  background-color #353B48
+  background-color #34495E
   font-family PingFangSC-Regular
 </style>

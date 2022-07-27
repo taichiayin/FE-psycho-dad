@@ -14,13 +14,13 @@ const user = useUserStore()
 const router = useRouter()
 
 const logout = () => {
-  window.FB.getLoginStatus(res => {
-    window.FB.logout((response) => {
-      console.log(response)
-      user.clearInfo()
-      router.replace({ name: 'Login' })
-    })
-  })
+  // window.FB.getLoginStatus(res => {
+  //   window.FB.logout((response) => {
+  //     console.log(response)
+  user.clearInfo()
+  router.replace({ name: 'Login' })
+  //   })
+  // })
 }
 
 const goEdit = () => {
@@ -39,7 +39,7 @@ const goFavorite = () => {
   height 100%
   padding 20px
   color rgba(255,255,255,.7)
-  background-color #353b48
+  background-color #34495E
   .btn
     width 100%
     height 40px

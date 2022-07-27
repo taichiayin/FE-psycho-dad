@@ -78,7 +78,8 @@
           <n-input v-model:value="form.email" placeholder="電子信箱" />
         </n-form-item>
         <n-form-item path="" label="">
-          <UploadImage :store-id="props.data.storeId" :default-img="props.data.defaultImg" @updateImgList="updateImgList" />
+          <UploadImage :store-id="props?.data?.storeId" />
+          <!-- <UploadImage :store-id="props.data.storeId" :default-img="props.data.defaultImg" @updateImgList="updateImgList" /> -->
         </n-form-item>
         <n-form-item path="lon" label="">
           <n-input-group>
@@ -196,9 +197,9 @@ const handleCountyUpdate = async val => {
   }
 }
 
-const updateImgList = data => {
-  form.value.defaultImg = data[0].url
-}
+// const updateImgList = data => {
+//   form.value.defaultImg = data[0].url
+// }
 
 const submit = async() => {
   if (props.mode === 'add') {

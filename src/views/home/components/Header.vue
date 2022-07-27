@@ -1,6 +1,12 @@
 <template>
   <div class="home-header">
-    <n-avatar round size="medium" :src="avatarUrl" />
+    <n-avatar
+      v-if="avatarUrl"
+      round
+      size="medium"
+      :src="avatarUrl"
+    />
+    <div v-else class="grant">Hello, {{ user.userInfo.username }}</div>
     <svg-icon class="icon-indent" name="indent" @click="active = !active" />
     <n-drawer v-model:show="active" :width="250" placement="right">
       <RightSideMenu />
@@ -14,8 +20,8 @@ import { useUserStore } from '@/store/user'
 import RightSideMenu from './RightSideMenu.vue'
 import { NAvatar, NDrawer } from 'naive-ui'
 
-const userStore = useUserStore()
-const avatarUrl = userStore.userInfo.avatar
+const user = useUserStore()
+const avatarUrl = user.userInfo.avatar
 
 const active = ref(false)
 
@@ -29,13 +35,14 @@ const active = ref(false)
   left 0
   z-index 1
   width 100%
+  height 40px
   padding 10px
   display flex
   justify-content space-between
   align-items center
-  background-color #353B48
+  background-color #34495E
   .icon-indent
-    width 36px
-    height 36px
+    width 30px
+    height 30px
 
 </style>

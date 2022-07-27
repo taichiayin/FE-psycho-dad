@@ -40,7 +40,7 @@ const goBack = () => {
   display flex
   justify-content space-between
   align-items center
-  background-color #353B48
+  background-color #34495E
   .icon-arrow-left
     width 36px
     height 36px

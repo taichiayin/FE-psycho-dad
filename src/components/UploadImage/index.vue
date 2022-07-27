@@ -1,68 +1,49 @@
 <template>
-  <div class="upload-image">
-    <n-upload
-      :file-list="fileList"
-      :max="1"
-      accept="image/jpeg"
-      list-type="image-card"
-      @change="handleUploadChange"
-      @remove="handleUploadRemove"
+  <input type="file" accept="image/jpeg" @change="onChange">
+  <n-modal v-if="show" v-model:show="show">
+    <Cropper
+      :img-url="imgUrl"
+      :img-name="imgName"
+      :store-id="props?.storeId"
+      @cropperCancel="cropperCancel"
+      @cropperConfirm="cropperConfirm"
     />
-  </div>
+  </n-modal>
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits, onMounted } from 'vue'
-import { NUpload, useMessage } from 'naive-ui'
-import { upload } from '@/api/upload.js'
-
-window.$Nmessage = useMessage()
+import { ref, defineProps } from 'vue'
+import { NModal } from 'naive-ui'
+import Cropper from './Cropper.vue'
 
 const props = defineProps({
   storeId: {
     type: Number,
     default: 0
-  },
-  defaultImg: {
-    type: String,
-    default: ''
   }
 })
 
-const emit = defineEmits(['updateImgList'])
+const imgUrl = ref(null)
+const imgName = ref(null)
+const show = ref(false)
 
-const fileList = ref([])
-
-const handleUploadChange = async({ file, event }) => {
-  if (!event) return
-  const formData = new FormData()
-  formData.append('file', file.file)
-  formData.append('fileName', 'defaultImg')
-  formData.append('storeId', props.storeId)
-  const { code, data, message } = await upload(formData)
-  if (code !== 1) {
-    window.$Nmessage.error(message)
-    return
-  }
-  window.$Nmessage.success(message)
-  fileList.value.push({ status: 'finished', url: data[0].Url })
-  emit('updateImgList', fileList.value)
+const cropperCancel = () => {
+  show.value = false
 }
 
-const handleUploadRemove = ({ file }) => {
-  fileList.value.pop()
-  // const idx = fileList.value.findIndex(el => el.name === file.name)
-  // fileList.value.splice(idx, 1)
-  emit('updateImgList', fileList.value)
+const cropperConfirm = () => {
+  show.value = false
 }
 
-onMounted(() => {
-  fileList.value.push({ status: 'finished', url: props.defaultImg })
-})
+const onChange = e => {
+  const img = e.target.files[0]
+  imgUrl.value = URL.createObjectURL(img)
+  imgName.value = img.name
+  show.value = true
+}
 
 </script>
 
 <style lang="stylus" scoped>
-.upload-image
-  width 100%
+
 </style>

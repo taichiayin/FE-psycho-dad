@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { useUserStore } from '@/store/user'
+const user = useUserStore()
 // import store from '@/store'
 // import router from '@/router'
 // import md5 from 'blueimp-md5'
@@ -28,11 +30,11 @@ const service = axios.create({
  */
 service.interceptors.request.use(
   config => {
-    // const accessToken = store.getters['login/accessToken']
+    const accessToken = user?.userInfo?.token || localStorage.getItem('userInfo')?.token || ''
     // const uid = store.getters['login/uid']
     // console.log('interceptors config accessToken', accessToken)
     // accessToken && (config.headers.Authorization = `Bearer ${accessToken}`)
-    // accessToken && (config.headers.token = accessToken)
+    accessToken && (config.headers.token = accessToken)
     // uid && (config.headers.uid = store.getters['login/uid'])
     return config
   },

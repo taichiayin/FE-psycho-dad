@@ -1,113 +1,48 @@
 <template>
   <div class="filter-bar">
-    <div class="row">
-      <div class="box country">
-        <n-select
-          v-model:value="county"
-          size="small"
-          clearable
-          label-field="name"
-          value-field="countyId"
-          :options="countyList"
-          placeholder="縣市"
-          @update:value="handleCountyUpdate"
-        />
-      </div>
-      <div class="box area">
-        <n-select
-          v-model:value="district"
-          size="small"
-          clearable
-          :options="districtList"
-          label-field="name"
-          value-field="districtId"
-          placeholder="鄉鎮區"
-          @update:value="handleDistrictUpdate"
-        />
-      </div>
-      <div class="box type">
-        <n-select
-          v-model:value="type"
-          size="small"
-          clearable
-          :options="typeList"
-          label-field="name"
-          value-field="typeId"
-          placeholder="類型"
-          @update:value="handleTypeUpdate"
-        />
-      </div>
+    <div class="input-wrap">
+      <SvgIcon class="icon-search" name="magnifying-glass" @click="handleKeywordUpdate" />
+      <input v-model="filters.storeName" type="text">
+      <SvgIcon class="icon-filter" name="sliders" @click="active = !active" />
     </div>
-    <div class="row">
-      <div class="box keyword">
-        <n-input
-          v-model:value="keyword"
-          size="small"
-          type="text"
-          placeholder="關鍵字"
-          @update:value="handleKeywordUpdate"
-        />
-      </div>
-      <n-button size="small" type="info" @click="onSortClick">
-        近到遠排序
-      </n-button>
-    </div>
+    <n-drawer
+      v-model:show="active"
+      class="drawer-filter"
+      height="auto"
+      placement="bottom"
+      resizable
+    >
+      <Filter @cancel="filterCancel" @confirm="filterConfirm" />
+    </n-drawer>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref, defineEmits } from 'vue'
-import { getAllCounties } from '@/api/counties.js'
-import { getAllDistricts } from '@/api/districts.js'
-import { getAllTypes } from '@/api/types.js'
-import { NSelect, NInput, NButton } from 'naive-ui'
+import { ref, defineEmits } from 'vue'
+import { NDrawer } from 'naive-ui'
+import Filter from './components/Filter.vue'
 
-const emit = defineEmits(['onCountyChange', 'onDistrictChange', 'onTypeChange', 'onKeywordChange', 'onSortClick'])
+const emit = defineEmits(['onKeywordChange', 'filterConfirm'])
 
-const county = ref(null)
-const district = ref(null)
-const type = ref(null)
-const keyword = ref(null)
-const countyList = ref([])
-const districtList = ref([])
-const typeList = ref([])
-
-const handleCountyUpdate = async val => {
-  district.value = null
-  const { code, data } = await getAllDistricts({ countyId: val })
-  if (code === 1) {
-    districtList.value = data
-  }
-  emit('onCountyChange', val)
-}
-
-const handleDistrictUpdate = val => {
-  emit('onDistrictChange', val)
-}
-
-const handleTypeUpdate = val => {
-  emit('onTypeChange', val)
-}
-
-const handleKeywordUpdate = val => {
-  emit('onKeywordChange', val)
-}
-
-const onSortClick = () => {
-  console.log('onSortClick')
-  emit('onSortClick')
-}
-
-onMounted(async() => {
-  const { code, data } = await getAllCounties()
-  if (code === 1) {
-    countyList.value = data
-  }
-  const { code: typeCode, data: typeData } = await getAllTypes()
-  if (typeCode === 1) {
-    typeList.value = typeData
-  }
+const active = ref(false)
+const filters = ref({
+  storeName: null
 })
+// const keyword = ref(null)
+
+const handleKeywordUpdate = e => {
+  emit('filterConfirm', filters.value)
+}
+
+const filterCancel = () => {
+  active.value = false
+}
+
+const filterConfirm = data => {
+  active.value = false
+  filters.value = { ...filters.value, ...data }
+  emit('filterConfirm', filters.value)
+}
 
 </script>
 
@@ -115,23 +50,53 @@ onMounted(async() => {
 .filter-bar
   box-sizing border-box
   position fixed
-  top 50px
-  left 0
+  top 40px
+  left 50%
+  transform translateX(-50%)
   z-index 1
   width 100%
-  padding 0 10px 10px 10px
+  // height 40px
+  padding 10px 10px
+  // margin-top 10px
   display flex
-  flex-direction column
   justify-content center
   align-items center
-  background-color #353B48
-  .row
+  border-radius 8px
+  background-color #34495E
+  .input-wrap
     width 100%
-    margin-bottom 5px
-    display flex
-    justify-content flex-start
-    align-items center
-    .box
-      width 30%
-      margin-right 10px
+    position relative
+    // display flex
+    // justify-content center
+    // align-items center
+    .icon-search
+      position absolute
+      left 10px
+      top 50%
+      width 20px
+      height 20px
+      transform translateY(-50%)
+      color #727d97
+    input
+      box-sizing border-box
+      width 100%
+      height 40px
+      border-radius 8px
+      padding 0 40px
+      font-family PingFangSC-Regular
+    .icon-filter
+      position absolute
+      top 50%
+      right 10px
+      transform translateY(-50%)
+      width 20px
+      height 20px
+      color #8a93a8
+      // transform rotate(90deg)
+</style>
+<style lang="stylus">
+.drawer-filter
+  &.n-drawer
+    border-radius 8px 8px 0 0
+
 </style>
