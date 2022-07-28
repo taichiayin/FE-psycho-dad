@@ -78,7 +78,13 @@
           <n-input v-model:value="form.email" placeholder="電子信箱" />
         </n-form-item>
         <n-form-item path="" label="">
-          <UploadImage :store-id="props?.data?.storeId" />
+          <img
+            v-if="form.defaultImg"
+            class="defalut-img"
+            :src="form.defaultImg"
+            alt=""
+          >
+          <UploadImage :reload="!!form.defaultImg" @cropperConfirm="handleImgUrl" />
           <!-- <UploadImage :store-id="props.data.storeId" :default-img="props.data.defaultImg" @updateImgList="updateImgList" /> -->
         </n-form-item>
         <n-form-item path="lon" label="">
@@ -166,7 +172,8 @@ window.$Nmessage = useMessage()
 const form = ref({
   countyId: null,
   dis: null,
-  imgList: null
+  imgList: null,
+  defaultImg: ''
 })
 const countyList = ref([])
 const districtList = ref([])
@@ -195,6 +202,10 @@ const handleCountyUpdate = async val => {
   if (districtCode === 1) {
     districtList.value = districtData
   }
+}
+
+const handleImgUrl = val => {
+  form.value.defaultImg = val
 }
 
 // const updateImgList = data => {
@@ -253,6 +264,7 @@ onMounted(async() => {
     form.value.isDads = props.data.isDads
     form.value.isDadsRecommend = props.data.isDadsRecommend
     form.value.isClosePermanently = props.data.isClosePermanently
+    form.value.defaultImg = props.data.defaultImg
     // form.value.defaultImg = props.data.defaultImg ? [{ url: props.data.defaultImg }] : []
     // form.value.img1 = props.data.img1 ? [{ url: props.data.img1 }] : []
     // form.value.img2 = props.data.img2 ? [{ url: props.data.img2 }] : []
@@ -270,6 +282,11 @@ onMounted(async() => {
   overflow-y scroll
   // border-radius 8px
   background-color #fff
+  .defalut-img
+    width 200px
+    height 100px
+    object-fit contain
+    margin-right 5px
   .btn-wrap
     width 100%
     display flex

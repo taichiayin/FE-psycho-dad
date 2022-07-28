@@ -40,8 +40,8 @@ export default defineConfig({
       },
       '/img': {
         target: 'http://localhost:3088', // 后端接口的域名
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/img/, '/v1/img')
+        changeOrigin: true
+        // rewrite: path => path.replace(/^\/img/, '/v1/img')
       }
       // ,
       // '/static': {

@@ -24,10 +24,6 @@ const props = defineProps({
   imgName: {
     type: String,
     default: ''
-  },
-  storeId: {
-    type: Number,
-    default: 0
   }
 })
 
@@ -44,18 +40,17 @@ const cancel = () => {
 const confirm = async() => {
   cropper.getCroppedCanvas().toBlob(async blob => {
     const formData = new FormData()
-    formData.append('fileName', 'defaultImg.jpeg')
-    formData.append('storeId', props.storeId)
-    formData.append('file', blob)
-    const { code, message } = await upload(formData)
+    // formData.append('fileName', 'defaultImg.jpeg')
+    // formData.append('storeId', props.storeId)
+    formData.append('file', blob, 'defaultImg.jpeg')
+    const { code, message, data } = await upload(formData)
     if (code !== 1) {
       nMessage.error(message)
       return
     }
     nMessage.success(message)
+    emit('cropperConfirm', data[0].Url)
   }, 'image/jpeg')
-
-  emit('cropperConfirm')
 }
 
 const initCropper = () => {

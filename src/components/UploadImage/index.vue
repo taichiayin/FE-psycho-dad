@@ -1,10 +1,16 @@
 <template>
-  <input type="file" accept="image/jpeg" @change="onChange">
+  <n-button type="info" @click="fileInput.click()">{{ props.reload ? '重新上傳' :'上傳圖片' }}</n-button>
+  <input
+    ref="fileInput"
+    type="file"
+    style="display: none"
+    accept="image/jpeg"
+    @change="onChange"
+  >
   <n-modal v-if="show" v-model:show="show">
     <Cropper
       :img-url="imgUrl"
       :img-name="imgName"
-      :store-id="props?.storeId"
       @cropperCancel="cropperCancel"
       @cropperConfirm="cropperConfirm"
     />
@@ -12,17 +18,20 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue'
-import { NModal } from 'naive-ui'
+import { ref, defineEmits, defineProps } from 'vue'
+import { NModal, NButton } from 'naive-ui'
 import Cropper from './Cropper.vue'
 
 const props = defineProps({
-  storeId: {
-    type: Number,
-    default: 0
+  reload: {
+    type: Boolean,
+    default: false
   }
 })
 
+const emit = defineEmits(['cropperConfirm'])
+
+const fileInput = ref(null)
 const imgUrl = ref(null)
 const imgName = ref(null)
 const show = ref(false)
@@ -31,7 +40,9 @@ const cropperCancel = () => {
   show.value = false
 }
 
-const cropperConfirm = () => {
+const cropperConfirm = val => {
+  console.log(val)
+  emit('cropperConfirm', val)
   show.value = false
 }
 
