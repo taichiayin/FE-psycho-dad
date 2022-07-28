@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { useUserStore } from '@/store/user'
-import { useRouter } from 'vue-router'
+import router from '@/router'
 const user = useUserStore()
-const router = useRouter()
+// const router = useRouter()
 // import store from '@/store'
 // import md5 from 'blueimp-md5'
 // import { osVersion, osName, mobileModel } from 'mobile-device-detect'
@@ -72,7 +72,6 @@ service.interceptors.response.use(
 
     //   return handleGlobalErrors(errorHandle, message, null, response.data)
     // }
-    console.log(code)
     if (code === 2099) {
       user.clearInfo()
       router.replace({ name: 'Login' })

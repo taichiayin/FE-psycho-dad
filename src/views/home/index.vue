@@ -5,34 +5,13 @@
       @filterConfirm="filterConfirm"
     />
     <div class="main">
-      <n-space v-if="!islocating" class="wrap" vertical>
-        <n-card
-          v-for="item in storeList"
-          :key="item.storeId"
-          class="card"
-          size="small"
-          :bordered="false"
-          @click="onStoreClick(item)"
-        >
-          <template v-if="item.defaultImg" #cover>
-            <img :src="item.defaultImg">
-          </template>
-          <template v-if="item.storeName" #header>
-            {{ item.storeName }} <span>{{ item.isClosePermanently?'已歇業':'' }}</span>
-          </template>
-          <div class="content">
-            <div class="county">{{ item.countyName }}</div>
-            <div class="district">{{ item.districtName }}</div>
-            <div v-if="item.dis !== 9999" class="dis">約距離{{ item.dis }}KM</div>
-          </div>
-        </n-card>
-        <InfiniteLoading :first-load="false" @infinite="loadMoreData" />
-      </n-space>
-      <n-spin v-if="islocating" class="spin">
-        <template #description>
-          定位中，請稍候...
-        </template>
-      </n-spin>
+      <ItemBox
+        v-for="item in storeList"
+        :key="item.storeId"
+        :row-data="item"
+        @onItemClick="onItemClick"
+      />
+      <InfiniteLoading :first-load="false" @infinite="loadMoreData" />
     </div>
     <Footer />
     <StoreDetailModal v-if="show" v-model:value="show" :data="data" />
@@ -47,13 +26,14 @@ export default {
 
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
-import { NCard, NSpace, NSpin } from 'naive-ui'
+// import { NCard } from 'naive-ui'
 // import { useUserStore } from '@/store/user.js'
 
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import StoreDetailModal from './components/StoreDetailModal.vue'
 import FilterBar from '@/components/FilterBar/index.vue'
+import ItemBox from '@/components/ItemBox/index.vue'
 import { getStores } from '@/api/stores.js'
 import InfiniteLoading from 'v3-infinite-loading'
 import 'v3-infinite-loading/lib/style.css'
@@ -86,7 +66,7 @@ const init = async() => {
   }
 }
 
-const onStoreClick = item => {
+const onItemClick = item => {
   data.value = item
   show.value = true
 }
@@ -141,30 +121,30 @@ onMounted(async() => {
   padding-top 96px
 .main
   width auto
-  padding 5px 10px 10px 10px
-  .wrap
-    margin-bottom 100px
-  .spin
-    width 100%
-    margin-top 100px
-  .content
-    width 100%
-    display flex
-    .county
-      margin-right 10px
-      padding 0 5px
-      border 1px solid #74b9ff
-      border-radius 20px
-      color #74b9ff
-    .district
-      padding 0 5px
-      border 1px solid #81ecec
-      border-radius 20px
-      color #81ecec
-    .dis
-      flex 1
-      text-align right
-      color #888
+  padding 5px 10px 100px 10px
+  .item-box
+    margin-bottom 10px
+  // .spin
+  //   width 100%
+  //   margin-top 100px
+  // .content
+  //   width 100%
+  //   display flex
+  //   .county
+  //     margin-right 10px
+  //     padding 0 5px
+  //     border 1px solid #74b9ff
+  //     border-radius 20px
+  //     color #74b9ff
+  //   .district
+  //     padding 0 5px
+  //     border 1px solid #81ecec
+  //     border-radius 20px
+  //     color #81ecec
+  //   .dis
+  //     flex 1
+  //     text-align right
+  //     color #888
 :deep(.n-card-header)
   span
     color #eb4d4b

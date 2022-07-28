@@ -1,9 +1,13 @@
 <template>
   <div class="filter-bar">
     <div class="input-wrap">
-      <SvgIcon class="icon-search" name="magnifying-glass" @click="handleKeywordUpdate" />
-      <input v-model="filters.storeName" type="text">
-      <SvgIcon class="icon-filter" name="sliders" @click="active = !active" />
+      <div class="keyword">
+        <input v-model="filters.storeName" type="text" placeholder="搜尋店名">
+        <SvgIcon class="icon-search" name="magnifying-glass" @click="handleKeywordUpdate" />
+      </div>
+      <div class="btn-filter">
+        <SvgIcon class="icon-filter" name="sliders" @click="active = !active" />
+      </div>
     </div>
     <n-drawer
       v-model:show="active"
@@ -65,34 +69,39 @@ const filterConfirm = data => {
   background-color #34495E
   .input-wrap
     width 100%
-    position relative
-    // display flex
-    // justify-content center
-    // align-items center
-    .icon-search
-      position absolute
-      left 10px
-      top 50%
-      width 20px
-      height 20px
-      transform translateY(-50%)
-      color #727d97
-    input
-      box-sizing border-box
-      width 100%
+    display flex
+    .keyword
+      position relative
+      flex 1
+      input
+        box-sizing border-box
+        width 100%
+        height 40px
+        padding 0 40px 0 10px
+        border-radius 8px
+        background-color #d8e0e9
+        font-family PingFangSC-Regular
+      .icon-search
+        position absolute
+        right 10px
+        top 50%
+        width 20px
+        height 20px
+        transform translateY(-50%)
+        color #727d97
+    .btn-filter
+      width 40px
       height 40px
+      display flex
+      justify-content center
+      align-items center
+      margin-left 10px
       border-radius 8px
-      padding 0 40px
-      font-family PingFangSC-Regular
-    .icon-filter
-      position absolute
-      top 50%
-      right 10px
-      transform translateY(-50%)
-      width 20px
-      height 20px
-      color #8a93a8
-      // transform rotate(90deg)
+      background-color #d8e0e9
+      .icon-filter
+        width 20px
+        height 20px
+        color #727d97
 </style>
 <style lang="stylus">
 .drawer-filter

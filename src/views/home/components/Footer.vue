@@ -36,7 +36,7 @@ const act = val => {
   display flex
   justify-content space-around
   align-items center
-  background-color #ccc
+  background-color #d8e0e9
   box-sizing border-box
   .btn
     display flex

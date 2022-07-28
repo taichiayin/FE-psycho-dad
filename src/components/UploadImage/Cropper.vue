@@ -58,7 +58,7 @@ const initCropper = () => {
     viewMode: 1,
     cropBoxResizable: false,
     dragMode: 'move',
-    aspectRatio: 300 / 100
+    aspectRatio: 300 / 200
 
   })
 }

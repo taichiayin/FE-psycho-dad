@@ -114,6 +114,7 @@ onMounted(async() => {
   flex-direction column
   justify-content center
   align-items center
+  background-color #d8e0e9
   .header
     position relative
     box-sizing border-box
