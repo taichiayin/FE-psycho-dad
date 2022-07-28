@@ -22,3 +22,11 @@ export function login(data) {
     data
   })
 }
+
+export function fbLogin(data) {
+  return request({
+    url: '/v1/fblogin',
+    method: 'post',
+    data
+  })
+}

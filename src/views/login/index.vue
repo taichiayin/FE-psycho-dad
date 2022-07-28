@@ -29,7 +29,7 @@
         <div class="opt-box signup">Sign up</div>
         <div class="opt-box forget">Forget Password</div>
       </div>
-      <div class="fblogin">
+      <div class="fblogin" @click="fbSubmit">
         <div class="logo">
           <SvgIcon class="fb-brands" name="fb-brands" />
         </div>
@@ -49,7 +49,7 @@ export default {
 
 <script setup>
 import { ref } from 'vue'
-import { login } from '@/api/login.js'
+import { login, fbLogin } from '@/api/login.js'
 import { useUserStore } from '@/store/user.js'
 import { useRouter } from 'vue-router'
 
@@ -79,6 +79,31 @@ const submit = async() => {
     user.setInfo(data)
     router.replace({ name: 'Home' })
   }
+}
+
+const fbSubmit = () => {
+  window.FB.login(function(res) {
+    console.log(res)
+    if (res.status === 'connected') {
+      window.FB.api('/me', {
+        'fields': 'id,name,email,picture'
+      }, async function(me) {
+        const payload = {
+          id: me.id,
+          name: me.name,
+          email: me.email,
+          avatarUrl: me?.picture?.data?.url ?? ''
+        }
+        const { code, data } = await fbLogin(payload)
+        if (code === 1) {
+          data.avatar = me?.picture?.data?.url ?? ''
+          data.email = me.email
+          user.setInfo(data)
+          router.replace({ name: 'Home' })
+        }
+      })
+    }
+  })
 }
 
 // import { useUserStore } from '@/store/user.js'

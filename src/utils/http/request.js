@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { useUserStore } from '@/store/user'
+import { useRouter } from 'vue-router'
 const user = useUserStore()
+const router = useRouter()
 // import store from '@/store'
-// import router from '@/router'
 // import md5 from 'blueimp-md5'
 // import { osVersion, osName, mobileModel } from 'mobile-device-detect'
 // import { GetDeviceId } from '@/utils/fingerprintDeviceId'
@@ -49,7 +50,7 @@ service.interceptors.request.use(
  */
 service.interceptors.response.use(
   response => {
-    // const { code, message, data } = response.data
+    const { code } = response.data
     // const { errorTypes } = response.config
     // const errorHandle = errorTypes.find(errorType => code === errorType.code)
 
@@ -71,11 +72,12 @@ service.interceptors.response.use(
 
     //   return handleGlobalErrors(errorHandle, message, null, response.data)
     // }
-
-    // if (code === 503) {
-    //   router.replace({ name: 'Maintenance', query: { startTime: data?.startTime, endTime: data?.endTime } })
-    //   return
-    // }
+    console.log(code)
+    if (code === 2099) {
+      user.clearInfo()
+      router.replace({ name: 'Login' })
+      return
+    }
 
     // if (code !== 1) {
     //   const hintErrorHandle = { type: ErrorResponseType.HINT, message }
