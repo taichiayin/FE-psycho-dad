@@ -9,7 +9,7 @@
     <div v-else class="grant">Hello, {{ user.userInfo.username }}</div>
     <svg-icon class="icon-indent" name="indent" @click="active = !active" />
     <n-drawer v-model:show="active" :width="250" placement="right">
-      <RightSideMenu />
+      <RightSideMenu @onChoose="onChoose" />
     </n-drawer>
   </div>
 </template>
@@ -24,6 +24,9 @@ const user = useUserStore()
 const avatarUrl = user.userInfo.avatar
 
 const active = ref(false)
+const onChoose = () => {
+  active.value = false
+}
 
 </script>
 
@@ -42,7 +45,8 @@ const active = ref(false)
   align-items center
   background-color #34495E
   .icon-indent
-    width 30px
-    height 30px
+    width 20px
+    height 20px
+    color #d8e0e9
 
 </style>

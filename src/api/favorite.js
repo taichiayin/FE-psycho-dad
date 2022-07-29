@@ -1,8 +1,8 @@
 import { devRequest as request } from '@/utils/http/index'
 
-export function getFavorites(userId, params) {
+export function getFavorites(params) {
   return request({
-    url: `/v1/favorites/${userId}`,
+    url: `/v1/favorites`,
     method: 'get',
     params
   })

@@ -42,23 +42,23 @@ const goBack = () => {
   align-items center
   background-color #34495E
   .icon-arrow-left
-    width 36px
-    height 36px
-    color #fff
+    width 20px
+    height 20px
+    color #d8e0e9
   .title
     display flex
     justify-content center
     align-items center
-    font-size 24px
-    color #fff
+    font-size 18px
+    color #d8e0e9
     .icon-heart
-      width 36px
-      height 36px
+      width 20px
+      height 20px
       margin-right 10px
       color #d63031
   .icon-indent
-    width 36px
-    height 36px
-    color #fff
+    width 20px
+    height 20px
+    color #d8e0e9
 
 </style>

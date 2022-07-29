@@ -13,6 +13,9 @@
         <div class="county">{{ props.rowData.countyName }}</div>
         <div class="district">{{ props.rowData.districtName }}</div>
       </div>
+      <div v-if="props.rowData.isClosePermanently" class="icon-wrap">
+        <SvgIcon class="permanentlyClose" name="permanentlyClose" />
+      </div>
     </div>
   </div>
 </template>
@@ -29,7 +32,8 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['onItemClick'])
+const emit = defineEmits(['onItemClick', 'update:value'])
+// const showModal = ref(false)
 
 const onItemClick = item => {
   emit('onItemClick', props.rowData)
@@ -56,6 +60,7 @@ const onItemClick = item => {
     background-size cover
   .content
     box-sizing border-box
+    position relative
     width 100%
     padding 20px
     .name
@@ -84,5 +89,18 @@ const onItemClick = item => {
         margin-left 5px
         border-radius 4px
         border 1px dashed #28D0F6
+    .icon-wrap
+      position absolute
+      top 5px
+      right 5px
+      width auto
+      display flex
+      justify-content center
+      align-items center
+      .permanentlyClose
+        width 80px
+        height 80px
+        transform rotate(45deg)
+        color #FF7675
 
 </style>

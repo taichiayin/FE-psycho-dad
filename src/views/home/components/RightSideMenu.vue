@@ -7,27 +7,27 @@
 </template>
 
 <script setup>
+import { defineEmits } from 'vue'
 import { useUserStore } from '@/store/user.js'
 import { useRouter } from 'vue-router'
+
+const emit = defineEmits(['onChoose'])
 
 const user = useUserStore()
 const router = useRouter()
 
 const logout = () => {
-  // window.FB.getLoginStatus(res => {
-  //   window.FB.logout((response) => {
-  //     console.log(response)
   user.clearInfo()
   router.replace({ name: 'Login' })
-  //   })
-  // })
 }
 
 const goEdit = () => {
+  emit('onChoose')
   router.push({ name: 'Edit' })
 }
 
 const goFavorite = () => {
+  emit('onChoose')
   router.push({ name: 'Favorite' })
 }
 

@@ -8,6 +8,13 @@ export const getStores = params => {
   })
 }
 
+export const getStoreDetail = storeId => {
+  return request({
+    url: `/v1/stores/${storeId}`,
+    method: 'get'
+  })
+}
+
 export const getStoresForEdit = () => {
   return request({
     url: '/v1/stores/edit',

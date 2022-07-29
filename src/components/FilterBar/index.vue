@@ -106,6 +106,8 @@ const filterConfirm = data => {
 <style lang="stylus">
 .drawer-filter
   &.n-drawer
-    border-radius 8px 8px 0 0
+    border-radius 16px 16px 0 0
+  .n-drawer-content-wrapper
+    border-radius 16px 16px 0 0
 
 </style>

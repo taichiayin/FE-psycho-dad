@@ -2,34 +2,16 @@
   <div class="favorite">
     <Header />
     <FilterBar
-      @onCountyChange="onCountyChange"
-      @onDistrictChange="onDistrictChange"
-      @onTypeChange="onTypeChange"
-      @onKeywordChange="onKeywordChange"
-      @onSortClick="sortByDis"
+      @filterConfirm="filterConfirm"
     />
     <div class="main">
-      <n-space v-if="!islocating" class="wrap" vertical>
-        <n-card
-          v-for="item in storeList"
-          :key="item.storeId"
-          class="card"
-          size="small"
-          :bordered="false"
-          @click="onStoreClick(item)"
-        >
-          <template v-if="item.defaultImg" #cover>
-            <img :src="item.defaultImg">
-          </template>
-          <template v-if="item.storeName" #header>
-            {{ item.storeName }} <span>{{ item.isClosePermanently?'已歇業':'' }}</span>
-          </template>
-        <!-- <div class="content">
-          <div class="dis">約距離{{ item.dis }}KM</div>
-        </div> -->
-        </n-card>
+      <ItemBox
+        v-for="item in storeList"
+        :key="item.storeId"
+        :row-data="item"
+        @onItemClick="onItemClick(item)"
+      />
       <!-- <InfiniteLoading :first-load="false" @infinite="loadMoreData" /> -->
-      </n-space>
     </div>
   </div>
 </template>
@@ -40,16 +22,18 @@ export default { name: 'Favorite' }
 
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
-import { NCard, NSpace } from 'naive-ui'
 import Header from './components/header.vue'
 import FilterBar from '@/components/FilterBar/index.vue'
+import ItemBox from '@/components/ItemBox/index.vue'
+import { useRouter } from 'vue-router'
 import { getFavorites } from '@/api/favorite.js'
-import { useUserStore } from '@/store/user.js'
+// import { useUserStore } from '@/store/user.js'
 
-const user = useUserStore()
+// const user = useUserStore()
+const router = useRouter()
 const storeList = ref([])
-const show = ref(false)
-const data = ref(null)
+// const show = ref(false)
+// const data = ref(null)
 const filters = reactive({
   page: 1,
   size: 20
@@ -57,7 +41,7 @@ const filters = reactive({
 
 const init = async s => {
   try {
-    const { code, data } = await getFavorites(user.userInfo.id, filters)
+    const { code, data } = await getFavorites(filters)
     if (code === 1) {
       if (filters.page === 1) storeList.value = []
       if (data.length < filters.size) {
@@ -72,29 +56,16 @@ const init = async s => {
   }
 }
 
-const onStoreClick = item => {
-  data.value = item
-  show.value = true
+const onItemClick = item => {
+  router.push({ path: `/itemDetail/${item.storeId}` })
 }
 
-const onCountyChange = val => {
-  filters.CountyId = val
-  filters.DistrictId = null
-  filters.page = 1
-  init()
-}
-const onDistrictChange = val => {
-  filters.DistrictId = val
-  filters.page = 1
-  init()
-}
-const onTypeChange = val => {
-  filters.TypeId = val
-  filters.page = 1
-  init()
-}
-const onKeywordChange = val => {
-  filters.Name = val
+const filterConfirm = data => {
+  const { countyId, districtId, typeId, storeName } = data
+  filters.countyId = countyId
+  filters.districtId = districtId
+  filters.typeId = typeId
+  filters.storeName = storeName
   filters.page = 1
   init()
 }
@@ -112,5 +83,7 @@ onMounted(() => {
   .main
     width auto
     padding 5px 10px 10px 10px
+    .item-box
+      margin-bottom 10px
 
 </style>

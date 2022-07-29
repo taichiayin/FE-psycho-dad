@@ -122,7 +122,7 @@ onMounted(async() => {
     padding 10px
     font-size 20px
     font-weight bold
-    border-bottom 1px solid #8a93a8
+    // border-bottom 1px solid #8a93a8
     text-align center
     .cancel
       position absolute
@@ -164,7 +164,11 @@ onMounted(async() => {
         :deep(.n-base-selection-label)
           font-size 18px
           height 40px
+          background-color #d8e0e9
         :deep(.n-base-selection__border), :deep(.n-base-selection__state-border)
           display none
+        :deep(.n-base-selection-placeholder)
+          color black
+          background-color #d8e0e9
 
 </style>

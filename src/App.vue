@@ -1,6 +1,11 @@
 <template>
   <n-message-provider>
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" v-if="$route.meta.keepAlive" />
+      </keep-alive>
+      <component :is="Component" v-if="!$route.meta.keepAlive" />
+    </router-view>
   </n-message-provider>
 </template>
 
@@ -13,7 +18,6 @@ import { onMounted } from '@vue/runtime-core'
 import { NMessageProvider } from 'naive-ui'
 
 onMounted(() => {
-
 })
 
 </script>

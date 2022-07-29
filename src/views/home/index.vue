@@ -8,13 +8,13 @@
       <ItemBox
         v-for="item in storeList"
         :key="item.storeId"
+        v-model:value="isShowStoreDetail"
         :row-data="item"
         @onItemClick="onItemClick"
       />
       <InfiniteLoading :first-load="false" @infinite="loadMoreData" />
     </div>
     <Footer />
-    <StoreDetailModal v-if="show" v-model:value="show" :data="data" />
   </div>
 </template>
 
@@ -26,24 +26,19 @@ export default {
 
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
-// import { NCard } from 'naive-ui'
-// import { useUserStore } from '@/store/user.js'
-
+import { useRouter } from 'vue-router'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
-import StoreDetailModal from './components/StoreDetailModal.vue'
 import FilterBar from '@/components/FilterBar/index.vue'
 import ItemBox from '@/components/ItemBox/index.vue'
 import { getStores } from '@/api/stores.js'
 import InfiniteLoading from 'v3-infinite-loading'
 import 'v3-infinite-loading/lib/style.css'
 
-// const user = useUserStore()
-// const Nmessage = useMessage()
+const router = useRouter()
 const storeList = ref([])
-const show = ref(false)
-const data = ref(null)
-const islocating = ref(false)
+const isShowStoreDetail = ref(false)
+// const isLocating = ref(false)
 const filters = reactive({
   page: 1,
   size: 20
@@ -67,8 +62,7 @@ const init = async() => {
 }
 
 const onItemClick = item => {
-  data.value = item
-  show.value = true
+  router.push({ path: `/itemDetail/${item.storeId}` })
 }
 
 const filterConfirm = data => {
@@ -101,12 +95,12 @@ const loadMoreData = async $state => {
 }
 
 onMounted(async() => {
-  islocating.value = true
+  // isLocating.value = true
   const { code, data } = await getStores(filters)
   if (code === 1) {
     storeList.value.push(...data)
     filters.page++
-    islocating.value = false
+    // isLocating.value = false
   }
   // 獲取裝置目前座標
   // const geoLoc = navigator.geolocation
@@ -124,27 +118,6 @@ onMounted(async() => {
   padding 5px 10px 100px 10px
   .item-box
     margin-bottom 10px
-  // .spin
-  //   width 100%
-  //   margin-top 100px
-  // .content
-  //   width 100%
-  //   display flex
-  //   .county
-  //     margin-right 10px
-  //     padding 0 5px
-  //     border 1px solid #74b9ff
-  //     border-radius 20px
-  //     color #74b9ff
-  //   .district
-  //     padding 0 5px
-  //     border 1px solid #81ecec
-  //     border-radius 20px
-  //     color #81ecec
-  //   .dis
-  //     flex 1
-  //     text-align right
-  //     color #888
 :deep(.n-card-header)
   span
     color #eb4d4b
