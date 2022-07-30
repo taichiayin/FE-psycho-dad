@@ -99,129 +99,95 @@ onMounted(async() => {
   box-sizing border-box
   width 100%
   min-height 100vh
-  // padding 10px
   background-color #34495E
   .default-img
     position relative
     width 100%
-    height 200px
-    // border-radius 16px 16px 0 0
+    height 400px
     background-repeat no-repeat
     background-position center
     background-size cover
 
     .icon-wrap
       position absolute
-      width 30px
-      height 30px
+      width 60px
+      height 60px
       display flex
       justify-content center
       align-items center
       border-radius 50%
       background-color rgba(255,255,255,.7)
       &.arrow-left
-        top 10px
-        left 10px
+        top 20px
+        left 20px
         .icon-arrow-left
-          width 20px
-          height 20px
+          width 40px
+          height 40px
           color #666
       &.heart
-        top 10px
-        right 10px
+        top 20px
+        right 20px
         .icon-heart
-          width 20px
-          height 20px
+          width 40px
+          height 40px
           color #c2c2c2
           &.active
             color #ff7675
   .content
     box-sizing border-box
     position relative
-    top -20px
+    top -40px
     width 100%
-    padding 30px 20px 20px 20px
+    padding 60px 40px 40px 40px
     display flex
     flex-direction column
     justify-content center
     align-items center
-    border-radius 16px
+    border-radius 32px
     color #000
     background-color #fff
     &:after
       content ''
       position absolute
-      top 5px
+      top 10px
       left 50%
       transform translateX(-50%)
-      width 50px
-      height 5px
-      border-radius 5px
+      width 100px
+      height 10px
+      border-radius 10px
       background-color #e5ebf1
     .title
       width 100%
-      margin-bottom 20px
-      font-size 24px
+      margin-bottom 40px
+      font-size 48px
       font-weight bold
-      letter-spacing 1.3px
+      letter-spacing 2.6px
       color #08a1c4
 
     .introduce
       width 100%
-      font-size 14px
-      margin-bottom 20px
-      letter-spacing .5px
+      font-size 28px
+      margin-bottom 40px
+      letter-spacing 1px
       line-height 1.5
       color #28D0F6
     .row
       width 100%
-      margin-bottom 20px
+      margin-bottom 40px
       display flex
       justify-content flex-start
       align-items center
-      letter-spacing .5px
-      font-size 16px
+      letter-spacing 1px
+      font-size 32px
       color #08a1c4
       &.address
         font-weight bold
       .icon
-        width 20px
-        height 20px
-        margin-right 10px
+        width 40px
+        height 40px
+        margin-right 20px
       .icon-leave
-        width 16px
-        height 16px
-        margin-left 10px
-      // &.address
-      //   .icon
-      //     width 20px
-      //     height 20px
-      //     margin-right 5px
-      //   .icon-leave
-      //     margin-left 10px
-      //     width 15px
-      //     height 15px
-
-      // &.phone
-
-      //   .icon
-      //     width 20px
-      //     height 20px
-      //     margin-right 5px
-      // &.mobile
-      //   .icon
-      //     width 20px
-      //     height 20px
-      //     margin-right 5px
-      // &.email
-      //   .icon
-      //     width 20px
-      //     height 20px
-      //     margin-right 5px
-      // &.web-site
-      //   .icon
-      //     width 20px
-      //     height 20px
-      //     margin-right 5px
-
+        width 32px
+        height 32px
+        margin-left 20px
 </style>

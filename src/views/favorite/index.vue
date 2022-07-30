@@ -79,11 +79,11 @@ onMounted(() => {
 <style lang="stylus" scoped>
 .favorite
   position relative
-  padding-top 125px
+  padding-top 250
   .main
     width auto
-    padding 5px 10px 10px 10px
+    padding 10px 20px 20px 20px
     .item-box
-      margin-bottom 10px
+      margin-bottom 20px
 
 </style>

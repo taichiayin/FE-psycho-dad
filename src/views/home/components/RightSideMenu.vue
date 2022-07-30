@@ -37,11 +37,11 @@ const goFavorite = () => {
 .right-side-menu
   width 100%
   height 100%
-  padding 20px
+  padding 40px
   color rgba(255,255,255,.7)
   background-color #34495E
   .btn
     width 100%
-    height 40px
-    font-size 24px
+    height 80px
+    font-size 48px
 </style>

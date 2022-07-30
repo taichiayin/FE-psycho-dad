@@ -38,15 +38,15 @@ const onChoose = () => {
   left 0
   z-index 1
   width 100%
-  height 40px
-  padding 10px
+  height 80px
+  padding 20px
   display flex
   justify-content space-between
   align-items center
   background-color #34495E
   .icon-indent
-    width 20px
-    height 20px
+    width 40px
+    height 40px
     color #d8e0e9
 
 </style>

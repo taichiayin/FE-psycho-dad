@@ -277,25 +277,23 @@ onMounted(async() => {
 .edit
   box-sizing border-box
   width 100%
-  height 600px
-  // padding 10px
+  height 1200px
   overflow-y scroll
-  // border-radius 8px
   background-color #fff
   .defalut-img
-    width 200px
-    height 100px
+    width 400px
+    height 200px
     object-fit contain
-    margin-right 5px
+    margin-right 10px
   .btn-wrap
     width 100%
     display flex
     justify-content flex-end
     align-items center
     button
-      margin-left 10px
+      margin-left 20px
 
 :deep(.n-form-item-feedback-wrapper)
-  min-height 10px
+  min-height 20px
 
 </style>

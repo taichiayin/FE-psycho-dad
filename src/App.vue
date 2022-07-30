@@ -18,6 +18,8 @@ export default { name: 'App' }
 import { onMounted } from '@vue/runtime-core'
 import { NMessageProvider } from 'naive-ui'
 import MessageApi from '@/components/message-api.vue'
+import { attachAutoResize } from '@/utils/resizeScreen.js'
+attachAutoResize()
 
 onMounted(() => {
 })
@@ -32,7 +34,7 @@ body,
   height 100%
   margin 0
   padding 0
-  font-size 16px
+  font-size 32px
   color rgba(255,255,255,.7)
   background-color #34495E
   font-family PingFangSC-Regular

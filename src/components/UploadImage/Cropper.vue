@@ -83,12 +83,12 @@ onMounted(() => {
     display block
     max-width 100%
   .btn-wrap
-    margin-top 10px
+    margin-top 20px
     display flex
     justify-content center
     align-items center
     .n-button
-      padding 20px
-      margin 10px
+      padding 40px
+      margin 20px
 
 </style>

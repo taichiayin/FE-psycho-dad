@@ -112,16 +112,16 @@ onMounted(async() => {
 <style lang="stylus" scoped>
 .home
   position relative
-  padding-top 96px
+  padding-top 192px
 .main
   width auto
-  padding 5px 10px 100px 10px
+  padding 10px 20px 200px 20px
   .item-box
-    margin-bottom 10px
+    margin-bottom 20px
 :deep(.n-card-header)
   span
     color #eb4d4b
-    font-size 20px
+    font-size 40px
     font-weight bold
 
 </style>

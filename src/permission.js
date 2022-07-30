@@ -1,5 +1,5 @@
 import router from '@/router'
-import { useUserStore } from './store/user'
+import { useUserStore } from './store/user.js'
 
 // import store from '@/store'
 

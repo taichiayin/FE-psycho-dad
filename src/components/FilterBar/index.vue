@@ -54,18 +54,16 @@ const filterConfirm = data => {
 .filter-bar
   box-sizing border-box
   position fixed
-  top 40px
+  top 80px
   left 50%
   transform translateX(-50%)
   z-index 1
   width 100%
-  // height 40px
-  padding 10px 10px
-  // margin-top 10px
+  padding 20px 20px
   display flex
   justify-content center
   align-items center
-  border-radius 8px
+  border-radius 16px
   background-color #34495E
   .input-wrap
     width 100%
@@ -76,38 +74,38 @@ const filterConfirm = data => {
       input
         box-sizing border-box
         width 100%
-        height 40px
-        padding 0 40px 0 10px
-        border-radius 8px
+        height 80px
+        padding 0 80px 0 20px
+        border-radius 16px
         background-color #d8e0e9
         font-family PingFangSC-Regular
       .icon-search
         position absolute
-        right 10px
+        right 20px
         top 50%
-        width 20px
-        height 20px
+        width 40px
+        height 50px
         transform translateY(-50%)
         color #727d97
     .btn-filter
-      width 40px
-      height 40px
+      width 80px
+      height 80px
       display flex
       justify-content center
       align-items center
-      margin-left 10px
-      border-radius 8px
+      margin-left 20px
+      border-radius 16px
       background-color #d8e0e9
       .icon-filter
-        width 20px
-        height 20px
+        width 40px
+        height 40px
         color #727d97
 </style>
 <style lang="stylus">
 .drawer-filter
   &.n-drawer
-    border-radius 16px 16px 0 0
+    border-radius 32px 32px 0 0
   .n-drawer-content-wrapper
-    border-radius 16px 16px 0 0
+    border-radius 32px 32px 0 0
 
 </style>

@@ -35,30 +35,30 @@ const goBack = () => {
   left 0
   box-sizing border-box
   width 100%
-  padding 10px
+  padding 20px
   z-index 1
   display flex
   justify-content space-between
   align-items center
   background-color #34495E
   .icon-arrow-left
-    width 20px
-    height 20px
+    width 40px
+    height 40px
     color #d8e0e9
   .title
     display flex
     justify-content center
     align-items center
-    font-size 18px
+    font-size 36px
     color #d8e0e9
     .icon-heart
-      width 20px
-      height 20px
-      margin-right 10px
+      width 40px
+      height 40px
+      margin-right 20px
       color #d63031
   .icon-indent
-    width 20px
-    height 20px
+    width 40px
+    height 40px
     color #d8e0e9
 
 </style>

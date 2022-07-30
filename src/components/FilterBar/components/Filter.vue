@@ -109,7 +109,7 @@ onMounted(async() => {
 .filter
   box-sizing border-box
   width 100%
-  padding-bottom 30px
+  padding-bottom 60px
   display flex
   flex-direction column
   justify-content center
@@ -119,51 +119,49 @@ onMounted(async() => {
     position relative
     box-sizing border-box
     width 100%
-    padding 10px
-    font-size 20px
+    padding 20px
+    font-size 40px
     font-weight bold
-    // border-bottom 1px solid #8a93a8
     text-align center
     .cancel
       position absolute
       top 50%
-      left 10px
+      left 20px
       transform translateY(-50%)
-      padding 0 5px
+      padding 0 10px
       font-weight normal
-      font-size 14px
+      font-size 28px
       font-weight normal
       color #FF9C9C
-      border-radius 4px
-      border 1px solid #FF9C9C
+      border-radius 8px
+      border 2px solid #FF9C9C
     .confirm
       position absolute
       top 50%
-      right 10px
+      right 20px
       transform translateY(-50%)
-      padding 0 5px
-      font-size 14px
+      padding 0 10px
+      font-size 28px
       font-weight normal
       color #fff
-      border-radius 4px
+      border-radius 8px
       background-color #7ABAFF
   .body
     box-sizing border-box
     width 100%
-    padding 10px
+    padding 20px
     display flex
     flex-direction column
     justify-content center
     align-items center
     .box
-      width 200px
-      border-bottom 2px solid #c4c9d4
-      margin-bottom 10px
+      width 400px
+      border-bottom 4px solid #c4c9d4
+      margin-bottom 20px
       .n-select
-        // margin-bottom 10px
         :deep(.n-base-selection-label)
-          font-size 18px
-          height 40px
+          font-size 36px
+          height 80px
           background-color #d8e0e9
         :deep(.n-base-selection__border), :deep(.n-base-selection__state-border)
           display none

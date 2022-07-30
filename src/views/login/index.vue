@@ -167,45 +167,45 @@ const fbSubmit = () => {
 
   .login-form
     width 80%
-    padding 20px
-    border-radius 16px
+    padding 40px
+    border-radius 32px
     position absolute
     top 50%
     left 50%
     transform translate(-50%, -50%)
     h1
-      font-size 36px
+      font-size 72px
       font-weight bold
       text-align center
-      margin-bottom 30px
+      margin-bottom 60px
       font-family PingFangSC-Regular
     .txt-box
       position relative
-      border-bottom 2px solid #dfe6e9
-      margin 30px 0
+      border-bottom 4px solid #dfe6e9
+      margin 60px 0
       input
         width 100%
-        height 40px
-        font-size 18px
+        height 80px
+        font-size 36px
         color #636e72
         background none
-        padding 0 5px
+        padding 0 10px
         font-family PingFangSC-Regular
         color #fff
         &.focus + span:before
-          top -5px
+          top -10px
 
         &.focus + span:after
           width 100%
       span
         font-family PingFangSC-Regular
-        font-size 20px
-        letter-spacing 1.2px
+        font-size 40px
+        letter-spacing 2.4px
         &:before
           content attr(data-placeholder)
           position absolute
           top 50%
-          left 5px
+          left 10px
           color #dfe6e9
           transform translateY(-50%)
           z-index -1
@@ -214,86 +214,66 @@ const fbSubmit = () => {
           content ''
           position absolute
           width 0
-          height 2px
+          height 4px
           background #b2bec3
           transition .5s
     .submit
       width 100%
-      height 40px
-      margin-bottom 20px
-      font-size 24px
-      letter-spacing 1.2px
+      height 80px
+      margin-bottom 40px
+      font-size 48px
+      letter-spacing 2.4px
       font-weight bold
-      line-height 40px
-      // border 1px solid #fff
-      border-radius 20px
+      line-height 80px
+      border-radius 40px
       text-align center
       background-color #577a9e
     .other-opt
       width 100%
-      height 20px
-      margin-bottom 20px
+      height 40px
+      margin-bottom 40px
       display flex
       justify-content center
       align-items center
       .opt-box
-        line-height 20px
-        padding 0 20px
+        line-height 40px
+        padding 0 40px
         font-weight bold
         &.signup
           position relative
           &:after
             content ''
             position absolute
-            width 2px
-            height 20px
+            width 4px
+            height 40px
             top 0
             right 0
             background-color rgba(255,255,255,.7)
     .fblogin
       position relative
       width 100%
-      height 40px
+      height 80px
       display flex
       justify-content center
       align-items center
-      border-radius 40px
+      border-radius 80px
       background-color #1877F2
       .logo
         position absolute
-        width 40px
-        height 40px
+        width 80px
+        height 80px
         display flex
         justify-content center
         align-items center
         top 0
         left 0
-        border-radius 40px
+        border-radius 80px
         background-color rgba(255,255,255,.9)
         .fb-brands
-          width 30px
-          height 30px
+          width 60px
+          height 60px
           color #1877f2
       .text
         color rgba(255,255,255,.7)
         font-weight bold
-  // .logo
-  //   width 200px
-  //   height 200px
-  //   border-radius 50%
-  //   background-repeat no-repeat
-  //   background-size cover
-  //   background-position center
-  //   background-image url("../../assets/imgs/logo.png")
-
-// .btn
-//   width 240px
-//   margin-top 20px
-//   padding 10px
-//   color rgba(255,255,255,.7)
-//   text-align center
-//   border-radius 8px
-//   background-color rgb(24, 119, 242)
-// .fb-login-btn
-//   width 80%
 </style>

@@ -80,45 +80,45 @@ onMounted(() => {
 .edit
   box-sizing border-box
   width 100%
-  padding 10px
+  padding 20px
   display flex
   flex-direction column
   justify-content center
   align-items flex-start
   .header
     width 100%
-    margin-bottom 10px
+    margin-bottom 20px
     display flex
     justify-content flex-start
     align-items center
     .arrow-left
-      font-size 32px
-      margin-right 10px
+      font-size 64px
+      margin-right 20px
     .title
       width auto
-      padding 10px
-      font-size 18px
+      padding 20px
+      font-size 36px
       font-weight bold
       color #ff7675
-      border-radius 8px
+      border-radius 16px
       background-color #fff
   .store-box
     box-sizing border-box
     width 100%
-    padding 10px
-    margin-bottom 5px
-    border-radius 44px
+    padding 20px
+    margin-bottom 10px
+    border-radius 88px
     background-color #666
   .add
     position fixed
-    width 40px
-    height 40px
-    bottom 30px
-    right 30px
+    width 80px
+    height 80px
+    bottom 60px
+    right 60px
     display flex
     justify-content center
     align-items center
-    font-size 28px
+    font-size 56px
     color #fff
     border-radius 50%
     background-color #d63031

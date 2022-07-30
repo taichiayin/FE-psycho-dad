@@ -30,7 +30,7 @@ const act = val => {
 .footer
   position fixed
   width 100%
-  height 44px
+  height 88px
   bottom 0
   left 0
   display flex
@@ -44,16 +44,16 @@ const act = val => {
     align-items center
     color #777
     .bread
-      width 20px
-      height 20px
+      width 40px
+      height 40px
       fill #777
     .thumb
-      width 20px
-      height 20px
+      width 40px
+      height 40px
       fill #777
     .text
       font-weight bold
-      margin-left 5px
+      margin-left 10px
     &.active
       color #000
       .icon
