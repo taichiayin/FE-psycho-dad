@@ -23,7 +23,7 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue'
 import EnsureBackgroundImage from '@/components/EnsureBackgroundImage/index.vue'
-import defaultImg from '@/views/assets/imgs/default-item.png'
+import defaultImg from '@/assets/imgs/default-item.png'
 
 const props = defineProps({
   rowData: {

@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import eslintPlugin from 'vite-plugin-eslint'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import { VitePWA } from 'vite-plugin-pwa'
 
 const fs = require('fs')
 
@@ -18,6 +19,17 @@ export default defineConfig({
       iconDirs: [path.resolve(__dirname, 'src/assets/svg')],
       // 指定symbolId格式
       symbolId: 'icon-[dir]-[name]'
+    }),
+    VitePWA({
+      registerType: 'autoUpdate',
+      // 測試環境開啟pwa
+      devOptions: {
+        enabled: true
+      },
+      // precache manifest預處理
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+      }
     })
   ],
   resolve: {

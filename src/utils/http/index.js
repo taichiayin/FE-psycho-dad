@@ -1,17 +1,18 @@
-import defaultRequest, { _addSign } from '@/utils/http/request'
+import defaultRequest from '@/utils/http/request'
 // import ErrorResponseType from '@/utils/errorResponseType'
 
 export const devRequest = async(req, errorTypes = []) => {
   // const serviceApiPrefix = process.env.IS_MOCK ? '/mock-api' : '/api'
-  const serviceApiPrefix = '/api'
+  // const serviceApiPrefix = '/api'
+  const serviceApiPrefix = import.meta.env.DEV ? '/api' : 'https://api.taixchi8.com'
 
-  const signParams = await _addSign()
+  // const signParams = await _addSign()
   // console.log('signParams: ', signParams)
   const headers = {}
   const axiosCommon = req.headers || {}
   headers['Accept-Language'] = 'zh-tw'
   // headers.appType = '0' // 0-平台，1-体育
-  req.headers = { ...axiosCommon, ...headers, ...signParams }
+  req.headers = { ...axiosCommon }
 
   // const globalError = [
   //   {

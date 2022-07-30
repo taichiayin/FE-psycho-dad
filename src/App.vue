@@ -6,6 +6,7 @@
       </keep-alive>
       <component :is="Component" v-if="!$route.meta.keepAlive" />
     </router-view>
+    <MessageApi />
   </n-message-provider>
 </template>
 
@@ -16,6 +17,7 @@ export default { name: 'App' }
 <script setup>
 import { onMounted } from '@vue/runtime-core'
 import { NMessageProvider } from 'naive-ui'
+import MessageApi from '@/components/message-api.vue'
 
 onMounted(() => {
 })

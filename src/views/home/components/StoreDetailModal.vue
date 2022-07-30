@@ -19,7 +19,7 @@
           <img
             v-if="props.data.defaultImg"
             class="carousel-img"
-            :src="props.data.defaultImg"
+            :src="props.rowData.defaultImg"
           >
         </n-carousel>
       </div>

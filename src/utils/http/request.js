@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useUserStore } from '@/store/user'
 import router from '@/router'
+import naiveui from '../naiveui'
 const user = useUserStore()
 // const router = useRouter()
 // import store from '@/store'
@@ -23,6 +24,10 @@ const service = axios.create({
   baseURL: '', // api 的 base_url
   headers: {
     'Content-Type': 'application/json'
+    // 'Access-Control-Allow-Origin': '*',
+    // 'Access-Control-Allow-Credentials': 'ture',
+    // 'Access-Control-Allow-Headers': 'Content-Type,Access-Token',
+    // 'Access-Control-Expose-Headers': 'Content-Length'
   }
 })
 
@@ -50,7 +55,7 @@ service.interceptors.request.use(
  */
 service.interceptors.response.use(
   response => {
-    const { code } = response.data
+    const { code, message } = response.data
     // const { errorTypes } = response.config
     // const errorHandle = errorTypes.find(errorType => code === errorType.code)
 
@@ -73,9 +78,14 @@ service.interceptors.response.use(
     //   return handleGlobalErrors(errorHandle, message, null, response.data)
     // }
     if (code === 2099) {
+      naiveui.message.error(message)
       user.clearInfo()
       router.replace({ name: 'Login' })
       return
+    }
+
+    if (code === 0) {
+      naiveui.message.error(message)
     }
 
     // if (code !== 1) {
