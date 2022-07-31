@@ -21,10 +21,37 @@ export default defineConfig({
       symbolId: 'icon-[dir]-[name]'
     }),
     VitePWA({
+      // 註冊service work options inline, script, auto, null
+      injectRegister: 'inline',
       registerType: 'autoUpdate',
       // 測試環境開啟pwa
       devOptions: {
         enabled: true
+      },
+      manifest: {
+        name: 'psychodad',
+        short_name: 'Psycho Dad',
+        start_url: './index.html',
+        display: 'standalone',
+        background_color: '#000000',
+        theme_color: '#577a9e',
+        icons: [
+          {
+            src: './image/icons/mstile-150x150.png?v=4',
+            sizes: '150x150',
+            type: 'image/png'
+          },
+          {
+            src: './image/icons/apple-touch-icon-180x180.png?v=4',
+            sizes: '180x180',
+            type: 'image/png'
+          },
+          {
+            src: './image/icons/msapplication-icon-144x144.png?v=6',
+            sizes: '144x144',
+            type: 'image/png'
+          }
+        ]
       },
       // precache manifest預處理
       workbox: {
