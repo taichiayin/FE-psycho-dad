@@ -159,6 +159,8 @@ onMounted(async() => {
       border-bottom 4px solid #c4c9d4
       margin-bottom 20px
       .n-select
+        .n-base-selection
+          line-height 1
         :deep(.n-base-selection-label)
           font-size 36px
           height 80px

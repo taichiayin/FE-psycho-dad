@@ -17,6 +17,7 @@ const user = useUserStore()
 const router = useRouter()
 
 const logout = () => {
+  emit('onChoose')
   user.clearInfo()
   router.replace({ name: 'Login' })
 }

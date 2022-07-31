@@ -31,7 +31,7 @@ import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import FilterBar from '@/components/FilterBar/index.vue'
 import ItemBox from '@/components/ItemBox/index.vue'
-import { getStores } from '@/api/stores.js'
+import { getStoresList } from '@/api/stores.js'
 import InfiniteLoading from 'v3-infinite-loading'
 import 'v3-infinite-loading/lib/style.css'
 
@@ -46,7 +46,7 @@ const filters = reactive({
 
 const init = async() => {
   try {
-    const { code, data } = await getStores(filters)
+    const { code, data } = await getStoresList(filters)
     if (code === 1) {
       if (filters.page === 1) storeList.value = []
       if (data.length < filters.size) {
@@ -77,7 +77,7 @@ const filterConfirm = data => {
 
 const loadMoreData = async $state => {
   try {
-    const { code, data } = await getStores(filters)
+    const { code, data } = await getStoresList(filters)
     if (code === 1) {
       if (filters.page === 1) storeList.value = []
       if (data.length < filters.size) {
@@ -96,7 +96,7 @@ const loadMoreData = async $state => {
 
 onMounted(async() => {
   // isLocating.value = true
-  const { code, data } = await getStores(filters)
+  const { code, data } = await getStoresList(filters)
   if (code === 1) {
     storeList.value.push(...data)
     filters.page++
