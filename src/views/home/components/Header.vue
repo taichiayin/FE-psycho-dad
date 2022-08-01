@@ -24,7 +24,7 @@ import { useUserStore } from '@/store/user'
 import RightSideMenu from './RightSideMenu.vue'
 
 const user = useUserStore()
-const avatarUrl = user.userInfo.avatar
+const avatarUrl = ref(user.userInfo.avatar)
 
 const active = ref(false)
 const onChoose = () => {
@@ -47,6 +47,9 @@ const onChoose = () => {
   justify-content space-between
   align-items center
   background-color #34495E
+  .van-image
+    width 60px
+    height 60px
   .icon-indent
     width 40px
     height 40px

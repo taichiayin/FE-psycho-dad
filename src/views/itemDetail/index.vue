@@ -78,7 +78,7 @@ const getFavorite = async() => {
     const { code } = await CreateFavorite({ storeId: rowData.value.storeId, userId: user.userInfo.userId })
     if (code === 1) {
       isFavorite.value = true
-      Notify({ type: 'success', message: '移除收藏' })
+      Notify({ type: 'success', message: '收藏成功' })
     }
   }
 }
