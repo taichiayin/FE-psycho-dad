@@ -2,15 +2,15 @@
   <div class="cropper">
     <img id="image" ref="imageRef" :src="props.imgUrl">
     <div class="btn-wrap">
-      <n-button @click="cancel">取消</n-button>
-      <n-button type="info" @click="confirm">裁切</n-button>
+      <van-button @click="cancel">取消</van-button>
+      <van-button type="info" @click="confirm">裁切</van-button>
     </div>
   </div>
 </template>
 
 <script setup>
 import { onMounted, defineProps, defineEmits, ref } from 'vue'
-import { NButton, useMessage } from 'naive-ui'
+import { Notify } from 'vant'
 
 import { upload } from '@/api/upload.js'
 import Cropper from 'cropperjs'
@@ -29,7 +29,6 @@ const props = defineProps({
 
 const emit = defineEmits(['cropperCancel', 'cropperConfirm'])
 
-const nMessage = useMessage()
 const imageRef = ref(null)
 let cropper
 
@@ -40,15 +39,13 @@ const cancel = () => {
 const confirm = async() => {
   cropper.getCroppedCanvas().toBlob(async blob => {
     const formData = new FormData()
-    // formData.append('fileName', 'defaultImg.jpeg')
-    // formData.append('storeId', props.storeId)
     formData.append('file', blob, 'defaultImg.jpeg')
     const { code, message, data } = await upload(formData)
     if (code !== 1) {
-      nMessage.error(message)
+      Notify({ type: 'danger', message })
       return
     }
-    nMessage.success(message)
+    Notify({ type: 'success', message })
     emit('cropperConfirm', data[0].Url)
   }, 'image/jpeg')
 }

@@ -47,7 +47,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useMessage } from 'naive-ui'
+import { Notify } from 'vant'
 import { useUserStore } from '@/store/user.js'
 import { useRouter, useRoute } from 'vue-router'
 import { getStoreDetail } from '@/api/stores.js'
@@ -59,7 +59,7 @@ import SvgIcon from '../../components/SvgIcon/index.vue'
 const user = useUserStore()
 const router = useRouter()
 const route = useRoute()
-const nMessage = useMessage()
+// const nMessage = useMessage()
 const rowData = ref({})
 const isFavorite = ref(false)
 
@@ -72,13 +72,13 @@ const getFavorite = async() => {
     const { code } = await DeleteFavorite({ storeId: rowData.value.storeId, userId: user.userInfo.userId })
     if (code === 1) {
       isFavorite.value = false
-      nMessage.success('移除收藏')
+      Notify({ type: 'success', message: '移除收藏' })
     }
   } else {
     const { code } = await CreateFavorite({ storeId: rowData.value.storeId, userId: user.userInfo.userId })
     if (code === 1) {
       isFavorite.value = true
-      nMessage.success('收藏成功')
+      Notify({ type: 'success', message: '移除收藏' })
     }
   }
 }

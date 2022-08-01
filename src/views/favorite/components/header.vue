@@ -8,15 +8,14 @@
     </div>
     <svg-icon class="icon-indent" name="indent" @click="active = !active" />
   </div>
-  <n-drawer v-model:show="active" :width="250" placement="right">
+  <van-popup v-model:show="active" :style="{ width: '250px' }" position="right">
     <RightSideMenu />
-  </n-drawer>
+  </van-popup>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { NDrawer } from 'naive-ui'
 import RightSideMenu from '@/views/home/components/RightSideMenu.vue'
 
 const router = useRouter()

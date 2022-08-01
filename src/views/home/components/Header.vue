@@ -1,16 +1,20 @@
 <template>
   <div class="home-header">
-    <n-avatar
+    <van-image
       v-if="avatarUrl"
       round
-      size="medium"
       :src="avatarUrl"
     />
     <div v-else class="grant">Hello, {{ user.userInfo.username }}</div>
     <svg-icon class="icon-indent" name="indent" @click="active = !active" />
-    <n-drawer v-model:show="active" :width="250" placement="right">
+    <van-popup
+      v-model:show="active"
+      :style="{ width: '250px' }"
+      position="right"
+      teleport="#app"
+    >
       <RightSideMenu @onChoose="onChoose" />
-    </n-drawer>
+    </van-popup>
   </div>
 </template>
 
@@ -18,7 +22,6 @@
 import { ref } from 'vue'
 import { useUserStore } from '@/store/user'
 import RightSideMenu from './RightSideMenu.vue'
-import { NAvatar, NDrawer } from 'naive-ui'
 
 const user = useUserStore()
 const avatarUrl = user.userInfo.avatar

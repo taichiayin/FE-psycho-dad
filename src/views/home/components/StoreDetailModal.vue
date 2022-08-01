@@ -10,18 +10,18 @@
     <div class="store-detail">
       <div class="title">{{ props.data.storeName }}</div>
       <div v-if="props.data.defaultImg ||props.data.img1 ||props.data.img2" class="carousel">
-        <n-carousel
-          effect="fade"
-          dot-type="line"
-          :interval="3000"
-          autoplay
+        <van-swipe
+          indicator-color="white"
+          :autoplay="3000"
         >
-          <img
-            v-if="props.data.defaultImg"
-            class="carousel-img"
-            :src="props.rowData.defaultImg"
-          >
-        </n-carousel>
+          <van-swipe-item>
+            <img
+              v-if="props.data.defaultImg"
+              class="carousel-img"
+              :src="props.rowData.defaultImg"
+            >
+          </van-swipe-item>
+        </van-swipe>
       </div>
       <div class="opt-wrap">
         <div class="bg" :class="{active: isFavorite}" @click="getFavorite">

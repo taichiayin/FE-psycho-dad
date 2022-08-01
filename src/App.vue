@@ -1,13 +1,10 @@
 <template>
-  <n-message-provider>
-    <router-view v-slot="{ Component }">
-      <keep-alive>
-        <component :is="Component" v-if="$route.meta.keepAlive" />
-      </keep-alive>
-      <component :is="Component" v-if="!$route.meta.keepAlive" />
-    </router-view>
-    <MessageApi />
-  </n-message-provider>
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component" v-if="$route.meta.keepAlive" />
+    </keep-alive>
+    <component :is="Component" v-if="!$route.meta.keepAlive" />
+  </router-view>
 </template>
 
 <script>
@@ -16,9 +13,9 @@ export default { name: 'App' }
 
 <script setup>
 import { onMounted } from '@vue/runtime-core'
-import { NMessageProvider } from 'naive-ui'
-import MessageApi from '@/components/message-api.vue'
 import { attachAutoResize } from '@/utils/resizeScreen.js'
+import 'vant/lib/index.css'
+
 attachAutoResize()
 
 onMounted(() => {

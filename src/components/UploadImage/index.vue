@@ -1,5 +1,5 @@
 <template>
-  <n-button type="info" @click="fileInput.click()">{{ props.reload ? '重新上傳' :'上傳圖片' }}</n-button>
+  <van-button type="info" @click="fileInput.click()">{{ props.reload ? '重新上傳' :'上傳圖片' }}</van-button>
   <input
     ref="fileInput"
     type="file"
@@ -7,19 +7,18 @@
     accept="image/jpeg"
     @change="onChange"
   >
-  <n-modal v-if="show" v-model:show="show">
+  <van-popup v-if="show" v-model:show="show">
     <Cropper
       :img-url="imgUrl"
       :img-name="imgName"
       @cropperCancel="cropperCancel"
       @cropperConfirm="cropperConfirm"
     />
-  </n-modal>
+  </van-popup>
 </template>
 
 <script setup>
 import { ref, defineEmits, defineProps } from 'vue'
-import { NModal, NButton } from 'naive-ui'
 import Cropper from './Cropper.vue'
 
 const props = defineProps({

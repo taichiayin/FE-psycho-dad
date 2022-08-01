@@ -36,8 +36,9 @@ const goFavorite = () => {
 
 <style lang="stylus" scoped>
 .right-side-menu
+  box-sizing border-box
   width 100%
-  height 100%
+  height 100vh
   padding 40px
   color rgba(255,255,255,.7)
   background-color #34495E

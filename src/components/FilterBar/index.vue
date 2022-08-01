@@ -9,21 +9,21 @@
         <SvgIcon class="icon-filter" name="sliders" @click="active = !active" />
       </div>
     </div>
-    <n-drawer
+    <van-popup
       v-model:show="active"
+      round
       class="drawer-filter"
-      height="auto"
-      placement="bottom"
-      resizable
+      position="bottom"
+      teleport="#app"
     >
       <Filter @cancel="filterCancel" @confirm="filterConfirm" />
-    </n-drawer>
+    </van-popup>
   </div>
 </template>
 
 <script setup>
 import { ref, defineEmits } from 'vue'
-import { NDrawer } from 'naive-ui'
+// import { NDrawer } from 'naive-ui'
 import Filter from './components/Filter.vue'
 
 const emit = defineEmits(['onKeywordChange', 'filterConfirm'])

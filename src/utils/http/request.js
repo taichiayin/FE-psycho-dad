@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { useUserStore } from '@/store/user'
 import router from '@/router'
-import naiveui from '../naiveui'
+import { Notify } from 'vant'
+
 const user = useUserStore()
 // const router = useRouter()
 // import store from '@/store'
@@ -78,14 +79,23 @@ service.interceptors.response.use(
     //   return handleGlobalErrors(errorHandle, message, null, response.data)
     // }
     if (code === 2099) {
-      naiveui.message.error(message)
+      Notify({
+        color: '#fff',
+        background: '#ff7675',
+        message
+      })
       user.clearInfo()
       router.replace({ name: 'Login' })
       return
     }
 
     if (code === 0) {
-      naiveui.message.error(message)
+      // naiveui.message.error(message)
+      Notify({
+        color: '#fff',
+        background: '#ff7675',
+        message
+      })
     }
 
     // if (code !== 1) {

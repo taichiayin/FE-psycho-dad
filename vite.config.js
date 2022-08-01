@@ -4,6 +4,8 @@ import path from 'path'
 import eslintPlugin from 'vite-plugin-eslint'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { VitePWA } from 'vite-plugin-pwa'
+import Components from 'unplugin-vue-components/vite'
+import { VantResolver } from 'unplugin-vue-components/resolvers'
 
 const fs = require('fs')
 
@@ -19,6 +21,9 @@ export default defineConfig({
       iconDirs: [path.resolve(__dirname, 'src/assets/svg')],
       // 指定symbolId格式
       symbolId: 'icon-[dir]-[name]'
+    }),
+    Components({
+      resolvers: [VantResolver()]
     }),
     VitePWA({
       // 註冊service work options inline, script, auto, null
@@ -82,11 +87,6 @@ export default defineConfig({
         changeOrigin: true
         // rewrite: path => path.replace(/^\/img/, '/v1/img')
       }
-      // ,
-      // '/static': {
-      //   target: 'https://admin.prj300.xyz/', // 后端接口的域名
-      //   changeOrigin: true
-      // }
     }
   }
 })
