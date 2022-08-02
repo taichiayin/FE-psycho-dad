@@ -2,7 +2,7 @@
   <div class="item-detail">
     <EnsureBackgroundImage
       class="default-img"
-      :src="rowData.defaultImg"
+      :src="defaultImgUrl"
       :default-src="defaultImg"
     >
       <div class="icon-wrap arrow-left">
@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { Notify } from 'vant'
 import { useUserStore } from '@/store/user.js'
 import { useRouter, useRoute } from 'vue-router'
@@ -66,6 +66,10 @@ const isFavorite = ref(false)
 const goBack = () => {
   router.go(-1)
 }
+
+const defaultImgUrl = computed(() => {
+  return import.meta.env.DEV ? rowData.value.defaultImg : `https://api.taixchi8.com${rowData.value.defaultImg}`
+})
 
 const getFavorite = async() => {
   if (isFavorite.value) {

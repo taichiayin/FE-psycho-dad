@@ -1,9 +1,5 @@
 <template>
   <div class="login">
-    <!-- <div class="logo" /> -->
-    <!-- <div class="btn" @click="login">
-      LOGIN WITH FACEBOOK
-    </div> -->
     <form class="login-form" action="">
       <div class="txt-box">
         <input
@@ -26,7 +22,7 @@
 
       <div class="submit" @click="submit">Login</div>
       <div class="other-opt">
-        <div class="opt-box signup">Sign up</div>
+        <div class="opt-box signup" @click="goRegister">Sign up</div>
         <div class="opt-box forget">Forget Password</div>
       </div>
       <div class="fblogin" @click="fbSubmit">
@@ -71,6 +67,10 @@ const onBlur = e => {
   } else {
     e.target.className = ''
   }
+}
+
+const goRegister = () => {
+  router.push({ name: 'Register' })
 }
 
 const submit = async() => {

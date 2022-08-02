@@ -87,7 +87,7 @@
                 <img
                   v-if="form.defaultImg"
                   class="defalut-img"
-                  :src="form.defaultImg"
+                  :src="defaultImgUrl"
                   alt=""
                 >
                 <UploadImage :reload="!!form.defaultImg" @cropperConfirm="handleImgUrl" />
@@ -327,6 +327,10 @@ const onIsCloseConfirm = val => {
 const handleImgUrl = val => {
   form.value.defaultImg = val
 }
+
+const defaultImgUrl = computed(() => {
+  return import.meta.env.DEV ? props.imgUrl : `https://api.taixchi8.com${props.imgUrl}`
+})
 
 const submit = async() => {
   const { lon, lat } = form.value

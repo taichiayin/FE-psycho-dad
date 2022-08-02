@@ -4,7 +4,7 @@ import { useUserStore } from './store/user.js'
 // import store from '@/store'
 
 // 白名单(不需權限)，里面是路由对象的path
-const whiteList = ['/login', '/404']
+const whiteList = ['/login', '/404', '/register']
 
 // vue-router4的路由守卫不再是通过next放行，而是通过return返回true或false或者一个路由地址
 router.beforeEach(async to => {

@@ -1,6 +1,6 @@
 <template>
   <div class="cropper">
-    <img id="image" ref="imageRef" :src="props.imgUrl">
+    <img id="image" ref="imageRef" :src="defaultImgUrl">
     <div class="btn-wrap">
       <van-button @click="cancel">取消</van-button>
       <van-button type="info" @click="confirm">裁切</van-button>
@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { onMounted, defineProps, defineEmits, ref } from 'vue'
+import { onMounted, defineProps, defineEmits, ref, computed } from 'vue'
 import { Notify } from 'vant'
 
 import { upload } from '@/api/upload.js'
@@ -28,6 +28,10 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['cropperCancel', 'cropperConfirm'])
+
+const defaultImgUrl = computed(() => {
+  return import.meta.env.DEV ? props.imgUrl : `https://api.taixchi8.com${props.imgUrl}`
+})
 
 const imageRef = ref(null)
 let cropper
