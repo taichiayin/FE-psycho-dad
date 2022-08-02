@@ -329,7 +329,7 @@ const handleImgUrl = val => {
 }
 
 const defaultImgUrl = computed(() => {
-  return import.meta.env.DEV ? props.imgUrl : `https://api.taixchi8.com${props.imgUrl}`
+  return import.meta.env.DEV ? props.data.defaultImg : `https://api.taixchi8.com${props.data.defaultImg}`
 })
 
 const submit = async() => {

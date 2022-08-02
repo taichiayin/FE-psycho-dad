@@ -6,6 +6,12 @@
         編輯模式
       </div>
     </div>
+    <div class="filter-bar">
+      <div class="keyword">
+        <input v-model="filters.storeName" type="text" placeholder="搜尋店名">
+        <SvgIcon class="icon-search" name="magnifying-glass" @click="handleKeywordUpdate" />
+      </div>
+    </div>
 
     <div
       v-for="(item, index) in storeList"
@@ -43,6 +49,7 @@ const storeList = ref([])
 const show = ref(false)
 const data = ref(null)
 const mode = ref('query')
+const filters = ref({})
 
 const init = async() => {
   const { code, data } = await getStoresForEdit()
@@ -68,6 +75,21 @@ const onAddClick = () => {
 
 const onSubmited = () => {
   init()
+}
+
+const handleKeywordUpdate = () => {
+  if (filters.value.storeName === '') {
+    init()
+    return
+  }
+
+  const resArr = []
+  storeList.value.filter(item => {
+    if (item.storeName.includes(filters.value.storeName)) {
+      resArr.push(item)
+    }
+  })
+  storeList.value = resArr
 }
 
 onMounted(() => {
@@ -102,6 +124,35 @@ onMounted(() => {
       color #ff7675
       border-radius 16px
       background-color #fff
+  .filter-bar
+    box-sizing border-box
+    width 100%
+    padding 20px 0
+    display flex
+    justify-content center
+    align-items center
+    border-radius 16px
+    background-color #34495E
+    .keyword
+      position relative
+      flex 1
+      input
+        box-sizing border-box
+        width 100%
+        height 80px
+        padding 0 80px 0 20px
+        border-radius 16px
+        color #646566
+        background-color #d8e0e9
+        font-family PingFangSC-Regular
+      .icon-search
+        position absolute
+        right 20px
+        top 50%
+        width 40px
+        height 50px
+        transform translateY(-50%)
+        color #727d97
   .store-box
     box-sizing border-box
     width 100%

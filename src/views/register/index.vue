@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <div class="title">Sign up</div>
-    <SvgIcon class="icon-arrow-left" name="arrow-left" />
+    <SvgIcon class="icon-arrow-left" name="arrow-left" @click="goBack" />
     <div class="wrap">
       <van-form ref="refForm" label-width="60px">
         <van-field
@@ -43,6 +43,10 @@ const form = ref({
   username: '',
   password: ''
 })
+
+const goBack = () => {
+  router.push({ name: 'Login' })
+}
 
 const onSubmit = () => {
   refForm.value.validate().then(async() => {

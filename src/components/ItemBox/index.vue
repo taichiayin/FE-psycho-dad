@@ -58,7 +58,7 @@ const onItemClick = item => {
   background-color #d8e0e9
   .default-img
     width 100%
-    height 200px
+    height 400px
     background-repeat no-repeat
     background-position center
     background-size cover
@@ -69,7 +69,7 @@ const onItemClick = item => {
     padding 20px
     .name
       margin-bottom 20px
-      font-size 24px
+      font-size 48px
       font-weight bold
       letter-spacing 1.3px
     .loc
