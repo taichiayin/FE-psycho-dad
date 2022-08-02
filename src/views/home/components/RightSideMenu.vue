@@ -1,7 +1,7 @@
 <template>
   <div class="right-side-menu">
     <div class="btn" @click="logout">登出</div>
-    <div class="btn" @click="goEdit">編輯模式</div>
+    <div v-if="user.userInfo.isAdmin" class="btn" @click="goEdit">編輯模式</div>
     <div class="btn" @click="goFavorite">我的收藏</div>
   </div>
 </template>

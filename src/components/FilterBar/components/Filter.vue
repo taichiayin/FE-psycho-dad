@@ -12,6 +12,7 @@
         readonly
         label="城市"
         placeholder="選擇城市"
+        label-width="60px"
         @click="showCountyPicker = true"
       />
       <van-field
@@ -20,6 +21,7 @@
         readonly
         label="鄉鎮區"
         placeholder="選擇鄉鎮區"
+        label-width="60px"
         @click="showDistrictPicker = true"
       />
       <van-field
@@ -28,6 +30,7 @@
         readonly
         label="類型"
         placeholder="選擇類型"
+        label-width="60px"
         @click="showTypePicker = true"
       />
 
@@ -198,5 +201,9 @@ onMounted(async() => {
       background-color #d8e0e9
       &:after
         border-bottom 4px solid #ccc
+      :deep(.van-field__body)
+        input
+          font-size 28px
+          color #646566
 
 </style>

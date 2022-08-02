@@ -1,156 +1,228 @@
 <template>
-  <n-modal
+  <van-popup
     v-model:show="visible"
-    preset="dialog"
-    :auto-focus="false"
-    :mask-closable="false"
-    :show-icon="false"
-    :bordered="false"
-    title="詳情"
+    :style="{width:'90%'}"
+    round
   >
     <div class="edit">
-      <n-form
+      <van-form
         ref="formRef"
         class="form"
-        :model="form"
-        :show-label="false"
-        size="small"
+        label-align="right"
       >
-        <n-form-item path="storeName" label="">
-          <n-input v-model:value="form.storeName" placeholder="名稱" />
-        </n-form-item>
-        <n-form-item path="countyId" label="">
-          <n-select
-            v-model:value="form.countyId"
-            size="small"
-            label-field="name"
-            value-field="countyId"
-            filterable
-            :options="countyList"
-            placeholder="縣市"
-            @update:value="handleCountyUpdate"
+        <van-cell-group inset>
+          <!-- <n-input v-model:value="form.storeName" placeholder="名稱" /> -->
+          <van-field
+            v-model="form.storeName"
+            label="名稱"
+            clearable
+            placeholder="请输入名稱"
           />
-        </n-form-item>
-        <n-form-item path="districtId" label="">
-          <n-select
-            v-model:value="form.districtId"
-            size="small"
-            :options="districtList"
-            label-field="name"
-            value-field="districtId"
-            filterable
-            placeholder="鄉鎮區"
+          <van-field
+            v-model="countyName"
+            is-link
+            readonly
+            label="城市"
+            placeholder="選擇城市"
+            @click="showCountyPicker = true"
           />
-        </n-form-item>
-        <n-form-item path="typeId" label="">
-          <n-select
-            v-model:value="form.typeId"
-            size="small"
-            :options="typeList"
-            filterable
-            label-field="name"
-            value-field="typeId"
-            placeholder="類型"
+          <van-field
+            v-model="districtName"
+            is-link
+            readonly
+            label="鄉鎮區"
+            placeholder="選擇鄉鎮區"
+            @click="showDistrictPicker = true"
           />
-        </n-form-item>
-        <n-form-item path="introduce" label="">
-          <n-input
-            v-model:value="form.introduce"
+          <van-field
+            v-model="typeName"
+            is-link
+            readonly
+            label="類型"
+            placeholder="選擇類型"
+            @click="showTypePicker = true"
+          />
+          <van-field
+            v-model="form.introduce"
+            rows="2"
+            label="介紹"
             type="textarea"
-            :maxlength="500"
-            show-count
-            placeholder="介紹"
+            maxlength="500"
+            placeholder="请输入介紹"
+            show-word-limit
           />
-        </n-form-item>
-        <n-form-item path="address" label="">
-          <n-input v-model:value="form.address" placeholder="地址" />
-        </n-form-item>
-        <n-form-item path="phone" label="">
-          <n-input v-model:value="form.phone" placeholder="手機" />
-        </n-form-item>
-        <n-form-item path="mobile" label="">
-          <n-input v-model:value="form.mobile" placeholder="電話" />
-        </n-form-item>
-        <n-form-item path="webSite" label="">
-          <n-input v-model:value="form.webSite" placeholder="網站" />
-        </n-form-item>
-        <n-form-item path="email" label="">
-          <n-input v-model:value="form.email" placeholder="電子信箱" />
-        </n-form-item>
-        <n-form-item path="" label="">
-          <img
-            v-if="form.defaultImg"
-            class="defalut-img"
-            :src="form.defaultImg"
-            alt=""
-          >
-          <UploadImage :reload="!!form.defaultImg" @cropperConfirm="handleImgUrl" />
-          <!-- <UploadImage :store-id="props.data.storeId" :default-img="props.data.defaultImg" @updateImgList="updateImgList" /> -->
-        </n-form-item>
-        <n-form-item path="lon" label="">
-          <n-input-group>
-            <n-input-number
-              v-model:value="form.lon"
-              :show-button="false"
-              :max="180"
-              placeholder="經度 數值: 0-180"
-            />
-            <n-input-group-label size="small">經度</n-input-group-label>
-          </n-input-group>
-        </n-form-item>
-        <n-form-item path="lat" label="">
-          <n-input-group>
-            <n-input-number
-              v-model:value="form.lat"
-              :show-button="false"
-              :max="90"
-              placeholder="緯度 數值: 0-90"
-            />
-            <n-input-group-label size="small">緯度</n-input-group-label>
-          </n-input-group>
-        </n-form-item>
-        <n-form-item path="isDads" label="">
-          <n-select
-            v-model:value="form.isDads"
-            size="small"
-            :options="isDadsList"
-            placeholder="大叔的店"
+          <van-field
+            v-model="form.address"
+            label="地址"
+            clearable
+            placeholder="请输入地址"
           />
-        </n-form-item>
-        <n-form-item path="isDadsRecommend" label="">
-          <n-select
-            v-model:value="form.isDadsRecommend"
-            size="small"
-            :options="isDadsRecommendList"
-            placeholder="大叔推薦"
+          <van-field
+            v-model="form.mobile"
+            label="手機"
+            clearable
+            placeholder="请输入手機"
           />
-        </n-form-item>
-        <n-form-item path="isClosePermanently" label="">
-          <n-select
-            v-model:value="form.isClosePermanently"
-            size="small"
-            :options="isClosePermanentlyList"
-            placeholder="是否歇業"
+          <van-field
+            v-model="form.phone"
+            label="電話"
+            clearable
+            placeholder="请输入電話"
           />
-        </n-form-item>
-      </n-form>
+          <van-field
+            v-model="form.webSite"
+            label="網站"
+            clearable
+            placeholder="请输入網站"
+          />
+          <van-field
+            v-model="form.email"
+            label="電子信箱"
+            clearable
+            placeholder="请输入電子信箱"
+          />
+          <van-field class="image-upload" label="圖片上傳">
+            <template #input>
+              <div class="upload-wrap">
+                <img
+                  v-if="form.defaultImg"
+                  class="defalut-img"
+                  :src="form.defaultImg"
+                  alt=""
+                >
+                <UploadImage :reload="!!form.defaultImg" @cropperConfirm="handleImgUrl" />
+              </div>
+            </template>
+          </van-field>
+          <van-field
+            v-model="form.lon"
+            type="number"
+            label="經度"
+            clearable
+            placeholder="經度 數值: 0-180"
+          />
+          <van-field
+            v-model="form.lat"
+            type="number"
+            label="緯度"
+            clearable
+            placeholder="緯度 數值: 0-90"
+          />
+          <van-field
+            v-model="isDadOptionName"
+            is-link
+            readonly
+            label="大叔的店"
+            placeholder="請選擇"
+            @click="showIsDadPicker = true"
+          />
+          <van-field
+            v-model="isDadsRecommendOptionName"
+            is-link
+            readonly
+            label="大叔推薦"
+            placeholder="請選擇"
+            @click="showIsDadRecommendPicker = true"
+          />
+          <van-field
+            v-model="isClosePermanentlyOptionName"
+            is-link
+            readonly
+            label="是否歇業"
+            placeholder="請選擇"
+            @click="showIsClosePicker = true"
+          />
+        </van-cell-group>
+      </van-form>
       <div class="btn-wrap">
-        <n-button round type="default" @click="visible = false">取消</n-button>
-        <n-button round type="info" @click="submit">送出</n-button>
+        <van-button
+          round
+          plain
+          size="small"
+          type="default"
+          @click="visible = false"
+        >
+          取消
+        </van-button>
+        <van-button
+          round
+          size="small"
+          type="primary"
+          @click="submit"
+        >
+          送出
+        </van-button>
       </div>
+
+      <!-- 彈窗區塊 -->
+      <van-popup v-model:show="showCountyPicker" round position="bottom">
+        <van-picker
+          :columns="countyList"
+          confirm-button-text="確定"
+          cancel-button-text="取消"
+          @cancel="showCountyPicker = false"
+          @confirm="onCountyConfirm"
+        />
+      </van-popup>
+      <van-popup v-model:show="showDistrictPicker" round position="bottom">
+        <van-picker
+          :columns="districtList"
+          confirm-button-text="確定"
+          cancel-button-text="取消"
+          @cancel="showDistrictPicker = false"
+          @confirm="onDistrictConfirm"
+        />
+      </van-popup>
+      <van-popup v-model:show="showTypePicker" round position="bottom">
+        <van-picker
+          :columns="typeList"
+          confirm-button-text="確定"
+          cancel-button-text="取消"
+          @cancel="showTypePicker = false"
+          @confirm="onTypeConfirm"
+        />
+      </van-popup>
+      <van-popup v-model:show="showIsDadPicker" round position="bottom">
+        <van-picker
+          :columns="isDadsList"
+          confirm-button-text="確定"
+          cancel-button-text="取消"
+          @cancel="showIsDadPicker = false"
+          @confirm="onIsDadConfirm"
+        />
+      </van-popup>
+      <van-popup v-model:show="showIsDadRecommendPicker" round position="bottom">
+        <van-picker
+          :columns="isDadsRecommendList"
+          confirm-button-text="確定"
+          cancel-button-text="取消"
+          @cancel="showIsDadRecommendPicker = false"
+          @confirm="onIsDadRecommendConfirm"
+        />
+      </van-popup>
+      <van-popup v-model:show="showIsClosePicker" round position="bottom">
+        <van-picker
+          :columns="isClosePermanentlyList"
+          confirm-button-text="確定"
+          cancel-button-text="取消"
+          @cancel="showIsClosePicker = false"
+          @confirm="onIsCloseConfirm"
+        />
+      </van-popup>
     </div>
-  </n-modal>
+  </van-popup>
 </template>
 
 <script setup>
 import { computed, defineEmits, defineProps, onMounted, ref } from 'vue'
-import { NModal, NForm, NFormItem, NInput, NButton, NSelect, NInputNumber, NInputGroup, NInputGroupLabel } from 'naive-ui'
-import { useMessage } from 'naive-ui'
+// import { NModal, NForm, NFormItem, NInput, NButton, NSelect, NInputNumber, NInputGroup, NInputGroupLabel } from 'naive-ui'
+// import { useMessage } from 'naive-ui'
 import { getAllCounties } from '@/api/counties.js'
 import { getAllDistricts } from '@/api/districts.js'
 import { getAllTypes } from '@/api/types.js'
 import { CreateStore, UpdateStore } from '@/api/stores.js'
 import UploadImage from '@/components/UploadImage/index.vue'
+import { Notify } from 'vant'
 
 const props = defineProps({
   data: {
@@ -168,27 +240,40 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:value', 'submited'])
-window.$Nmessage = useMessage()
 const form = ref({
   countyId: null,
   dis: null,
   imgList: null,
   defaultImg: ''
 })
+
+const showCountyPicker = ref(null)
+const showDistrictPicker = ref(null)
+const showTypePicker = ref(null)
+const countyName = ref(null)
+const districtName = ref(null)
+const typeName = ref(null)
 const countyList = ref([])
 const districtList = ref([])
 const typeList = ref([])
+
+const showIsDadPicker = ref(null)
+const showIsDadRecommendPicker = ref(null)
+const showIsClosePicker = ref(null)
+const isDadOptionName = ref(null)
+const isDadsRecommendOptionName = ref(null)
+const isClosePermanentlyOptionName = ref(null)
 const isDadsList = ref([
-  { label: '是，大叔開的店', value: true },
-  { label: '否，不是大叔開的店', value: false }
+  { text: '是，大叔開的店', value: true },
+  { text: '否，不是大叔開的店', value: false }
 ])
 const isDadsRecommendList = ref([
-  { label: '是，大叔推薦的店', value: true },
-  { label: '否，不是大叔推薦的店', value: false }
+  { text: '是，大叔推薦的店', value: true },
+  { text: '否，不是大叔推薦的店', value: false }
 ])
 const isClosePermanentlyList = ref([
-  { label: '已歇業', value: true },
-  { label: '正常營業中', value: false }
+  { text: '已歇業', value: true },
+  { text: '正常營業中', value: false }
 ])
 
 const visible = computed({
@@ -196,36 +281,71 @@ const visible = computed({
   set: val => emit('update:value', val)
 })
 
-const handleCountyUpdate = async val => {
+const onCountyConfirm = async val => {
   form.value.districtId = null
-  const { code: districtCode, data: districtData } = await getAllDistricts({ countyId: val })
-  if (districtCode === 1) {
-    districtList.value = districtData
+  districtName.value = null
+  form.value.countyId = val.value
+  countyName.value = val.text
+  const { code, data } = await getAllDistricts({ countyId: val.value })
+  if (code === 1) {
+    districtList.value = data.map(item => {
+      return {
+        text: item.name,
+        value: item.districtId
+      }
+    })
   }
+  showCountyPicker.value = false
+}
+const onDistrictConfirm = val => {
+  form.value.districtId = val.value
+  districtName.value = val.text
+  showDistrictPicker.value = false
+}
+const onTypeConfirm = val => {
+  form.value.typeId = val.value
+  typeName.value = val.text
+  showTypePicker.value = false
+}
+
+const onIsDadConfirm = val => {
+  form.value.isDads = val.value
+  isDadOptionName.value = val.text
+  showIsDadPicker.value = false
+}
+const onIsDadRecommendConfirm = val => {
+  form.value.isDadsRecommend = val.value
+  isDadsRecommendOptionName.value = val.text
+  showIsDadRecommendPicker.value = false
+}
+const onIsCloseConfirm = val => {
+  form.value.isClosePermanently = val.value
+  isClosePermanentlyOptionName.value = val.text
+  showIsClosePicker.value = false
 }
 
 const handleImgUrl = val => {
   form.value.defaultImg = val
 }
 
-// const updateImgList = data => {
-//   form.value.defaultImg = data[0].url
-// }
-
 const submit = async() => {
+  const { lon, lat } = form.value
+  // 因為vant input type="number"還是輸出string，要自己轉
+  form.value = { ...form.value, lon: parseFloat(lon), lat: parseFloat(lat) }
+
   if (props.mode === 'add') {
     const { code, message } = await CreateStore(form.value)
     if (code === 1) {
-      window.$Nmessage.success(message)
+      Notify({ type: 'success', message })
     } else {
-      window.$Nmessage.error(message)
+      Notify({ type: 'danger', message })
     }
   } else if (props.mode === 'edit') {
     const { code, message } = await UpdateStore(form.value.storeId, form.value)
     if (code === 1) {
-      window.$Nmessage.success(message)
+      Notify({ type: 'success', message })
     } else {
-      window.$Nmessage.error(message)
+      Notify({ type: 'danger', message })
     }
   }
   visible.value = false
@@ -235,23 +355,41 @@ const submit = async() => {
 onMounted(async() => {
   const { code: countyCode, data: countyData } = await getAllCounties()
   if (countyCode === 1) {
-    countyList.value = countyData
+    countyList.value = countyData.map(item => {
+      return {
+        text: item.name,
+        value: item.countyId
+      }
+    })
   }
 
   const { code: typeCode, data: typeData } = await getAllTypes()
   if (typeCode === 1) {
-    typeList.value = typeData
+    typeList.value = typeData.map(item => {
+      return {
+        text: item.name,
+        value: item.typeId
+      }
+    })
   }
 
   if (props.mode === 'edit') {
     const { code: districtCode, data: districtData } = await getAllDistricts()
     if (districtCode === 1) {
-      districtList.value = districtData
+      districtList.value = districtData.map(item => {
+        return {
+          text: item.name,
+          value: item.districtId
+        }
+      })
     }
     form.value.storeId = props.data.storeId
     form.value.storeName = props.data.storeName
     form.value.introduce = props.data.introduce
     form.value.countyId = props.data.countyId || null
+    countyName.value = props.data.countyName
+    districtName.value = props.data.districtName
+    typeName.value = props.data.typeName
     form.value.districtId = props.data.districtId || null
     form.value.typeId = props.data.typeId || null
     form.value.address = props.data.address
@@ -265,6 +403,9 @@ onMounted(async() => {
     form.value.isDadsRecommend = props.data.isDadsRecommend
     form.value.isClosePermanently = props.data.isClosePermanently
     form.value.defaultImg = props.data.defaultImg
+    isDadOptionName.value = isDadsList.value.find(item => item.value === props.data.isDads).text
+    isDadsRecommendOptionName.value = isDadsRecommendList.value.find(item => item.value === props.data.isDadsRecommend).text
+    isClosePermanentlyOptionName.value = isClosePermanentlyList.value.find(item => item.value === props.data.isClosePermanently).text
     // form.value.defaultImg = props.data.defaultImg ? [{ url: props.data.defaultImg }] : []
     // form.value.img1 = props.data.img1 ? [{ url: props.data.img1 }] : []
     // form.value.img2 = props.data.img2 ? [{ url: props.data.img2 }] : []
@@ -280,20 +421,27 @@ onMounted(async() => {
   height 1200px
   overflow-y scroll
   background-color #fff
-  .defalut-img
-    width 400px
-    height 200px
-    object-fit contain
-    margin-right 10px
+  .upload-wrap
+    display flex
+    flex-direction column
+    justify-content flex-start
+    .defalut-img
+      width 300px
+      height 200px
+      padding 10px
+      // margin-right 10px
+      object-fit cover
+      border-radius 32px
   .btn-wrap
+    box-sizing border-box
     width 100%
+    padding 20px
+    margin 20px 0
     display flex
     justify-content flex-end
     align-items center
     button
+      width 160px
       margin-left 20px
-
-:deep(.n-form-item-feedback-wrapper)
-  min-height 20px
 
 </style>

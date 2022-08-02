@@ -1,5 +1,13 @@
 <template>
-  <van-button type="info" @click="fileInput.click()">{{ props.reload ? '重新上傳' :'上傳圖片' }}</van-button>
+  <van-button
+    class="btn-upload"
+    round
+    type="primary"
+    size="small"
+    @click="fileInput.click()"
+  >
+    {{ props.reload ? '重新上傳' :'上傳圖片' }}
+  </van-button>
   <input
     ref="fileInput"
     type="file"
@@ -55,5 +63,7 @@ const onChange = e => {
 </script>
 
 <style lang="stylus" scoped>
+.btn-upload
+  width 200px
 
 </style>
